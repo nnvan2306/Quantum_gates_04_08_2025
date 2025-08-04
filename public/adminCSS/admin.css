@@ -1,0 +1,358 @@
+/* Admin Dashboard Styles */
+body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fc;
+}
+
+#wrapper {
+    display: flex;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 224px;
+    min-height: 100vh;
+    flex-shrink: 0;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+}
+
+.sidebar-brand {
+    height: 4.375rem;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    z-index: 1;
+}
+
+.sidebar-brand-icon {
+    font-size: 2rem;
+}
+
+.sidebar-brand-text {
+    font-size: 0.85rem;
+}
+
+.sidebar-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 0 1rem 1rem;
+}
+
+.sidebar-heading {
+    text-align: center;
+    padding: 0 1rem;
+    font-weight: 800;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 1rem;
+    position: relative;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    color: #fff;
+}
+
+.nav-link.active {
+    color: #fff;
+}
+
+.nav-link i {
+    font-size: 0.85rem;
+    margin-right: 0.25rem;
+}
+
+.nav-link span {
+    font-size: 0.85rem;
+    display: inline;
+}
+
+/* Content Wrapper */
+#content-wrapper {
+    background-color: #f8f9fc;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+#content {
+    flex: 1 0 auto;
+}
+
+/* Topbar */
+.topbar {
+    height: 4.375rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.topbar .navbar-search .form-control {
+    border: 1px solid #d1d3e2;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    height: auto;
+    padding-left: 1rem;
+    padding-right: 2.5rem;
+}
+
+.topbar .navbar-nav .nav-item .nav-link {
+    color: #5a5c69;
+    padding: 0.75rem 1rem;
+}
+
+.img-profile {
+    height: 2rem;
+    width: 2rem;
+}
+
+/* Cards */
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e3e6f0;
+    border-radius: 0.35rem;
+}
+
+.card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+/* Stats Cards */
+.stats-card {
+    border-left: 0.25rem solid;
+}
+
+.stats-card.primary {
+    border-left-color: #4e73df;
+}
+
+.stats-card.success {
+    border-left-color: #1cc88a;
+}
+
+.stats-card.info {
+    border-left-color: #36b9cc;
+}
+
+.stats-card.warning {
+    border-left-color: #f6c23e;
+}
+
+.stats-card.danger {
+    border-left-color: #e74a3b;
+}
+
+.stats-number {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #5a5c69;
+}
+
+.stats-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #858796;
+}
+
+.stats-icon {
+    font-size: 2em;
+    color: #dddfeb;
+}
+
+/* Buttons */
+.btn {
+    font-size: 0.8rem;
+    border-radius: 0.35rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    transition: all 0.15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #2e59d9;
+    border-color: #2653d4;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 0.2rem;
+}
+
+/* Tables */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #858796;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #e3e6f0;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #e3e6f0;
+    font-weight: 800;
+    color: #5a5c69;
+}
+
+/* Utilities */
+.text-gray-800 {
+    color: #5a5c69 !important;
+}
+
+.text-gray-600 {
+    color: #6c757d !important;
+}
+
+.text-primary {
+    color: #4e73df !important;
+}
+
+.font-weight-bold {
+    font-weight: 700 !important;
+}
+
+.shadow {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+
+.shadow-sm {
+    box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.2) !important;
+}
+
+/* Footer */
+.sticky-footer {
+    flex-shrink: 0;
+}
+
+.copyright {
+    line-height: 1;
+    font-size: 0.8rem;
+}
+
+/* Scroll to top */
+.scroll-to-top {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    display: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    text-align: center;
+    color: #fff;
+    background: rgba(90, 92, 105, 0.5);
+    line-height: 46px;
+    border-radius: 100%;
+    transition: all 0.3s;
+}
+
+.scroll-to-top:hover {
+    color: white;
+    background: #5a5c69;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 0;
+        margin-left: -224px;
+    }
+    
+    .sidebar.toggled {
+        width: 224px;
+        margin-left: 0;
+    }
+    
+    #content-wrapper {
+        width: 100%;
+    }
+}
+
+/* Animation */
+.animated--grow-in {
+    animation-name: growIn;
+    animation-duration: 200ms;
+    animation-timing-function: transform cubic-bezier(0.18, 1.25, 0.4, 1), opacity cubic-bezier(0, 1, 0.4, 1);
+}
+
+@keyframes growIn {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.animated--fade-in {
+    animation-name: fadeIn;
+    animation-duration: 200ms;
+    animation-timing-function: opacity cubic-bezier(0, 1, 0.4, 1);
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

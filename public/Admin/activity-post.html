@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý Hoạt động</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <link rel="stylesheet" href="../adminCSS/admin_events.css">
+
+  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+</head>
+<body class="bg-white p-6">
+  <h2 class="text-2xl font-bold mb-4">📅 Thêm hoạt động</h2>
+
+  <div class="flex gap-6">
+    <!-- Bên trái: Nhập -->
+    <div class="space-y-4 w-1/2">
+      <input type="text" id="title" placeholder="Tiêu đề hoạt động" class="w-full px-4 py-2 border rounded">
+      <input type="date" id="event-date" class="w-full px-4 py-2 border rounded">
+      <input type="time" id="event-time" class="w-full px-4 py-2 border rounded">
+      <input type="text" id="event-location" placeholder="Địa điểm" class="w-full px-4 py-2 border rounded">
+      <input type="text" id="thumbnail" placeholder="Link ảnh đại diện" class="w-full px-4 py-2 border rounded">
+      <div id="editor" class="bg-white border rounded" style="height: 250px;"></div>
+      <button onclick="createEvent()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Thêm hoạt động</button>
+      <p id="result" class="text-green-600 font-medium"></p>
+    </div>
+
+    <!-- Bên phải: Preview -->
+    <div class="w-1/2 border rounded p-4 bg-gray-50">
+      <h3 class="text-lg font-semibold mb-2">Xem trước hoạt động</h3>
+      <h4 id="preview-title" class="text-xl font-bold mb-1"></h4>
+      <p class="text-sm text-gray-600 mb-1">
+        🗓️ <span id="preview-datetime"></span>
+      </p>
+      <p class="text-sm text-gray-600 mb-2">
+        📍 <span id="preview-location"></span>
+      </p>
+      <img id="preview-thumb" class="mb-4 max-h-52 object-contain" alt="Ảnh đại diện">
+      <div id="preview-content" class="prose max-w-none bg-white p-3 border rounded"></div>
+    </div>
+  </div>
+
+  <script src="../adminJS/admin_events.js"></script>
+</body>
+</html>

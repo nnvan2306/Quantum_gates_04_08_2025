@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Cổng Pauli-Y</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjs@11.11.0/lib/browser/math.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+        />
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+        ></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body);"
+        ></script>
+        <link rel="stylesheet" href="../css/styles.css" />
+        <style>
+            #button_control {
+                background: #e53935;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                font-weight: 600;
+                font-size: 14px;
+                border-radius: 12px;
+                cursor: pointer;
+                box-shadow: 0 6px 16px -4px rgba(229, 57, 53, 0.6);
+                transition: transform 0.1s, filter 0.1s;
+                display: inline-block;
+                line-height: 1;
+            }
+            #button_control:hover {
+                filter: brightness(1.05);
+                transform: translateY(-1px);
+            }
+            #button_control:active {
+                transform: translateY(1px);
+                box-shadow: 0 4px 12px -2px rgba(229, 57, 53, 0.6);
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="text-xl font-bold">QUANTUM GATES</div>
+            <nav class="space-x-6 text-sm">
+                <a href="index.html" class="hover:underline">Trang chủ</a>
+                <a href="Congluongtu.html" class="hover:underline"
+                    >Cổng lượng tử</a
+                >
+                <a href="BaiViet.html" class="hover:underline">Bài viết</a>
+                <a href="HoatDong.html" class="hover:underline">Hoạt động</a>
+                <a href="Sukien.html" class="hover:underline">Sự kiện</a>
+                <a href="LienHe.html" class="hover:underline">Liên hệ</a>
+                <a href="HoiVien.html" class="hover:underline">Hội viên</a>
+                <button id="button_control"></button>
+            </nav>
+        </header>
+
+        <main class="mt-6 flex flex-col items-center">
+            <h1 class="text-4xl font-bold text-gray-900 text-center mb-2">
+                🌀 CỔNG PAULI-Y
+            </h1>
+            <p class="text-center italic text-purple-600 text-lg mb-6">
+                “Biến đổi pha trong thế giới lượng từ”
+            </p>
+
+            <div class="bg-white rounded-xl shadow-md p-6 w-full max-w-4xl">
+                <div class="mb-6 text-gray-800 leading-relaxed text-justify">
+                    <p class="mb-4">
+                        Cổng Pauli-Y (Y gate) là một trong ba cổng Pauli cơ bản,
+                        có ảnh hưởng đến pha và đổi vị qubit. Khi tác động lên
+                        qubit, nó thực hiện sự đổi chỉ số như Pauli-X, nhưng
+                        đồng thời thay đổi pha thông qua phần ảo.
+                    </p>
+                    <p>Biểu diễn:</p>
+                </div>
+
+                <div class="math-box text-blue-800 text-center mb-6">
+                    $$ Y = \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix} $$
+                </div>
+
+                <label for="inputState" class="block mb-2 font-bold"
+                    >Chọn trạng thái đầu vào:</label
+                >
+                <select id="inputState" class="mb-6 p-2 border rounded">
+                    <option value="0">|0⟩</option>
+                    <option value="1">|1⟩</option>
+                </select>
+
+                <div class="w-full max-w-md mx-auto my-6">
+                    <canvas id="stateChart" class="w-full h-64"></canvas>
+                </div>
+
+                <div class="w-full max-w-2xl mx-auto mt-8">
+                    <h3
+                        class="text-lg font-semibold text-gray-800 mb-2 text-center"
+                    >
+                        Biểu đồ biên độ phức (Re/Im và |c|)
+                    </h3>
+                    <canvas
+                        id="complexChart"
+                        class="w-full h-64 bg-white rounded shadow"
+                    ></canvas>
+                </div>
+
+                <div class="flex justify-center">
+                    <button onclick="simulatePauliY()" class="main-button">
+                        Mô phỏng Pauli-Y
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div>
+                <h3>VỀ CHÚNG TÔI</h3>
+                <p>Liên hệ: quantumgates@example.com</p>
+                <p>Chính sách</p>
+            </div>
+            <div>
+                <h3>CỔNG LƯỢNG TẮ</h3>
+                <p>Hadamard</p>
+                <p>Pauli-X</p>
+                <p>Pauli-Y</p>
+            </div>
+            <div>
+                <h3>TÀI NGUYÊN</h3>
+                <p>Tài liệu học</p>
+                <p>Biểu đồ trạng thái</p>
+            </div>
+            <div>
+                <h3>LIÊN HỌ</h3>
+                <p>Trường Đại học Kỹ thuật - Cần Thơ</p>
+                <p>SĐT: 0385 316 325</p>
+            </div>
+        </footer>
+
+        <div
+            id="slideUpPage"
+            class="fixed bottom-[-100%] left-0 w-full h-full bg-white z-50 flex flex-col transition-all duration-700"
+        >
+            <header
+                class="bg-black text-white p-4 flex justify-between items-center"
+            >
+                <div class="text-xl font-bold">QUANTUM GATES</div>
+                <nav class="space-x-6 text-sm">
+                    <a href="index.html" class="hover:underline">Trang chủ</a>
+                    <a href="Congluongtu.html" class="hover:underline"
+                        >Cổng lượng từ</a
+                    >
+                    <a href="HoatDong.html" class="hover:underline"
+                        >Hoạt động</a
+                    >
+                    <a href="Sukien.html" class="hover:underline">Sự kiện</a>
+                    <a href="LienHe.html" class="hover:underline">Liên hệ</a>
+                    <a href="HoiVien.html" class="hover:underline">Hội viên</a>
+                </nav>
+            </header>
+            <div
+                class="flex-grow flex flex-col items-center justify-center text-center px-4"
+            >
+                <h2 class="text-3xl font-bold text-amber-600 mb-4">
+                    🚀 Quantum World Is Loading
+                </h2>
+                <p class="text-gray-700">
+                    Trang mới đang được khởi tạo... Hãy cùng khám phá!
+                </p>
+            </div>
+            <footer
+                class="bg-black text-white p-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm"
+            >
+                <div>
+                    <h3 class="font-bold mb-2">VỀ CHÚNG TÔI</h3>
+                    <p>Liên hệ: quantumgates@example.com</p>
+                    <p>Chính sách</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">CỔNG LƯỢNG TỬ</h3>
+                    <p>Hadamard</p>
+                    <p>Pauli-X</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">TÀI NGUYÊN</h3>
+                    <p>Tài liệu học</p>
+                    <p>Biểu đồ trạng thái</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">LIÊN HỆ</h3>
+                    <p>Trường Đại học Kỹ thuật - Cần Thơ</p>
+                    <p>SĐT: 0385 316 325</p>
+                </div>
+            </footer>
+        </div>
+
+        <script src="../js/main.js"></script>
+    </body>
+</html>

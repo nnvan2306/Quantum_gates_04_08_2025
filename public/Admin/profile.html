@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ cá nhân - Quantum Gates Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="../adminCSS/admin.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-atom"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Quantum Gates</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">Quản lý</div>
+
+            <!-- Nav Item - Users -->
+            <li class="nav-item">
+                <a class="nav-link" href="users.html">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Người dùng</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Posts -->
+            <li class="nav-item">
+                <a class="nav-link" href="posts.html">
+                    <i class="fas fa-fw fa-newspaper"></i>
+                    <span>Bài viết</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - History -->
+            <li class="nav-item">
+                <a class="nav-link" href="history.html">
+                    <i class="fas fa-fw fa-history"></i>
+                    <span>Lịch sử tương tác</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">Cá nhân</div>
+
+            <!-- Nav Item - Profile -->
+            <li class="nav-item active">
+                <a class="nav-link" href="profile.html">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Hồ sơ</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav
+                    class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow justify-content-between">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-bs-toggle="dropdown">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                    id="userDisplayName">Loading...</span>
+                                <img class="img-profile rounded-circle"
+                                    src="https://png.pngtree.com/png-vector/20230509/ourmid/pngtree-personal-flat-icon-vector-png-image_7092615.png"
+                                    id="userAvatar">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                                <a class="dropdown-item" href="profile.html">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Hồ sơ
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Đăng xuất
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Hồ sơ cá nhân</h1>
+                    </div>
+
+                    <div class="row">
+                        <!-- Profile Information -->
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Thông tin cá nhân</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form id="profileForm">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="username" class="form-label">Tên đăng nhập</label>
+                                                    <input type="text" class="form-control" id="username"
+                                                        name="username" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input type="email" class="form-control" id="email" name="email"
+                                                        required>
+                                                    <div class="invalid-feedback"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="full_name" class="form-label">Họ và tên</label>
+                                                    <input type="text" class="form-control" id="full_name"
+                                                        name="full_name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="role" class="form-label">Vai trò</label>
+                                                    <input type="text" class="form-control" id="role" name="role"
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="bio" class="form-label">Giới thiệu</label>
+                                            <textarea class="form-control" id="bio" name="bio" rows="3"
+                                                placeholder="Viết vài dòng về bản thân..."></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <button type="button" class="btn btn-primary" onclick="updateProfile()">
+                                                <span class="btn-text">Cập nhật thông tin</span>
+                                                <span class="spinner-border spinner-border-sm d-none"
+                                                    role="status"></span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <!-- Change Password -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Đổi mật khẩu</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form id="passwordForm">
+                                        <div class="mb-3">
+                                            <label for="current_password" class="form-label">Mật khẩu hiện tại</label>
+                                            <input type="password" class="form-control" id="current_password"
+                                                name="current_password" required>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="new_password" class="form-label">Mật khẩu mới</label>
+                                            <input type="password" class="form-control" id="new_password"
+                                                name="new_password" required minlength="6">
+                                            <div class="invalid-feedback"></div>
+                                            <div class="form-text">Mật khẩu phải có ít nhất 6 ký tự</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="confirm_password" class="form-label">Xác nhận mật khẩu
+                                                mới</label>
+                                            <input type="password" class="form-control" id="confirm_password"
+                                                name="confirm_password" required>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <button type="button" class="btn btn-warning" onclick="changePassword()">
+                                                <span class="btn-text">Đổi mật khẩu</span>
+                                                <span class="spinner-border spinner-border-sm d-none"
+                                                    role="status"></span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Profile Stats & Avatar -->
+                        <div class="col-lg-4">
+                            <!-- Profile Card -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Ảnh đại diện</h6>
+                                </div>
+                                <div class="card-body text-center">
+                                    <img class="img-profile rounded-circle mb-3"
+                                        src="https://via.placeholder.com/150x150" id="profileAvatar" width="150"
+                                        height="150">
+                                    <div class="mb-3">
+                                        <input type="file" class="form-control" id="avatarFile" accept="image/*"
+                                            onchange="previewAvatar(this)">
+                                        <div class="form-text">Chọn ảnh JPG, PNG (tối đa 2MB)</div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary btn-sm" onclick="uploadAvatar()">
+                                        <i class="fas fa-upload"></i> Tải lên
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Account Stats -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Thống kê tài khoản</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div id="accountStats">
+                                        <div class="text-center">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Account Info -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Thông tin tài khoản</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row no-gutters">
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                                        </div>
+                                        <div class="col ml-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Ngày
+                                                tham gia</div>
+                                            <div class="h6 mb-0 font-weight-bold text-gray-800" id="joinDate">Loading...
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row no-gutters">
+                                        <div class="col-auto">
+                                            <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                        </div>
+                                        <div class="col ml-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Đăng
+                                                nhập cuối</div>
+                                            <div class="h6 mb-0 font-weight-bold text-gray-800" id="lastLogin">
+                                                Loading...</div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row no-gutters">
+                                        <div class="col-auto">
+                                            <i class="fas fa-shield-alt fa-2x text-gray-300"></i>
+                                        </div>
+                                        <div class="col ml-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Trạng
+                                                thái</div>
+                                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                                <span class="badge bg-success" id="accountStatus">Hoạt động</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Quantum Gates 2024</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../adminJS/config.js"></script>
+    <script src="../adminJS/auth.js"></script>
+    <script src="../adminJS/profile.js"></script>
+</body>
+
+</html>

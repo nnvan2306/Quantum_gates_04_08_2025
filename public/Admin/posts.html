@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý bài viết - Quantum Gates Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="../adminCSS/admin.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-atom"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Quantum Gates</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">Quản lý</div>
+
+            <!-- Nav Item - Users -->
+            <li class="nav-item">
+                <a class="nav-link" href="users.html">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Người dùng</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Posts -->
+            <li class="nav-item active">
+                <a class="nav-link" href="posts.html">
+                    <i class="fas fa-fw fa-newspaper"></i>
+                    <span>Bài viết</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - History -->
+            <li class="nav-item">
+                <a class="nav-link" href="history.html">
+                    <i class="fas fa-fw fa-history"></i>
+                    <span>Lịch sử tương tác</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">Cá nhân</div>
+
+            <!-- Nav Item - Profile -->
+            <li class="nav-item">
+                <a class="nav-link" href="profile.html">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Hồ sơ</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Topbar -->
+                <nav
+                    class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow justify-content-between">
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small"
+                                placeholder="Tìm kiếm bài viết..." id="searchInput">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="searchBtn">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-bs-toggle="dropdown">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"
+                                    id="userDisplayName">Loading...</span>
+                                <img class="img-profile rounded-circle"
+                                    src="https://png.pngtree.com/png-vector/20230509/ourmid/pngtree-personal-flat-icon-vector-png-image_7092615.png"
+                                    id="userAvatar">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                                <a class="dropdown-item" href="profile.html">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Hồ sơ
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" id="logoutBtn">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Đăng xuất
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Quản lý bài viết</h1>
+                        <div class="dropdown">
+                            <button class="btn btn-primary btn-sm shadow-sm dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown">
+                                <i class="fas fa-plus fa-sm text-white-50"></i> Tạo mới
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" onclick="openCreatePostModal()">
+                                        <i class="fas fa-newspaper"></i> Bài viết thường
+                                    </a></li>
+                                <li><a class="dropdown-item" href="#" onclick="openCreateEventModal()">
+                                        <i class="fas fa-calendar-alt"></i> Sự kiện
+                                    </a></li>
+                                <li><a class="dropdown-item" href="#" onclick="openCreateActivityModal()">
+                                        <i class="fas fa-tasks"></i> Hoạt động
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Bộ lọc</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <select class="form-select" id="statusFilter">
+                                        <option value="">Tất cả trạng thái</option>
+                                        <option value="draft">Nháp</option>
+                                        <option value="published">Đã xuất bản</option>
+                                        <option value="archived">Lưu trữ</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-select" id="typeFilter">
+                                        <option value="">Tất cả loại</option>
+                                        <option value="post">Bài viết</option>
+                                        <option value="event">Sự kiện</option>
+                                        <option value="activity">Hoạt động</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-select" id="categoryFilter">
+                                        <option value="">Tất cả danh mục</option>
+                                        <option value="quantum-basics">Cơ bản Quantum</option>
+                                        <option value="quantum-gates">Cổng Quantum</option>
+                                        <option value="algorithms">Thuật toán</option>
+                                        <option value="applications">Ứng dụng</option>
+                                        <option value="news">Sự kiện</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-select" id="authorFilter">
+                                        <option value="">Tất cả tác giả</option>
+                                        <!-- Will be populated by JS -->
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-outline-primary" onclick="applyFilters()">
+                                        <i class="fas fa-filter"></i> Áp dụng
+                                    </button>
+                                    <button class="btn btn-outline-secondary" onclick="clearFilters()">
+                                        <i class="fas fa-times"></i> Xóa bộ lọc
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Posts Table -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Danh sách bài viết</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="postsTableContainer">
+                                <div class="text-center">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Posts pagination">
+                        <ul class="pagination justify-content-center" id="pagination">
+                            <!-- Pagination will be inserted here -->
+                        </ul>
+                    </nav>
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Quantum Gates 2024</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Event Modal (new-post.html) -->
+    <div class="modal fade" id="eventModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalTitle">Tạo sự kiện</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="eventForm">
+                        <input type="hidden" id="eventId" name="eventId">
+                        <input type="hidden" name="type" value="event">
+                        <div class="mb-3">
+                            <label for="eventTitle" class="form-label">Tên sự kiện *</label>
+                            <input type="text" class="form-control" id="eventTitle" name="title" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="eventStartDate" class="form-label">Ngày bắt đầu *</label>
+                                    <input type="datetime-local" class="form-control" id="eventStartDate"
+                                        name="start_date" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="eventEndDate" class="form-label">Ngày kết thúc</label>
+                                    <input type="datetime-local" class="form-control" id="eventEndDate" name="end_date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="eventLocation" class="form-label">Địa điểm</label>
+                                    <input type="text" class="form-control" id="eventLocation" name="location"
+                                        placeholder="Địa điểm tổ chức">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="eventCapacity" class="form-label">Số lượng tham gia</label>
+                                    <input type="number" class="form-control" id="eventCapacity" name="capacity" min="1"
+                                        placeholder="Giới hạn số người">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDescription" class="form-label">Mô tả sự kiện *</label>
+                            <textarea class="form-control" id="eventDescription" name="content" rows="6" required
+                                placeholder="Mô tả chi tiết về sự kiện..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventRequirements" class="form-label">Yêu cầu tham gia</label>
+                            <textarea class="form-control" id="eventRequirements" name="requirements" rows="3"
+                                placeholder="Các yêu cầu để tham gia sự kiện..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventTags" class="form-label">Tags (phân cách bằng dấu phẩy)</label>
+                            <input type="text" class="form-control" id="eventTags" name="tags"
+                                placeholder="workshop, quantum, beginner">
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventStatus" class="form-label">Trạng thái *</label>
+                            <select class="form-select" id="eventStatus" name="status" required>
+                                <option value="draft">Nháp</option>
+                                <option value="published">Xuất bản</option>
+                                <option value="archived">Lưu trữ</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="saveEvent()">
+                        <span class="btn-text">Lưu</span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Modal -->
+    <div class="modal fade" id="postModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="postModalTitle">Tạo bài viết</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="postForm">
+                        <input type="hidden" id="postId" name="postId">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Tiêu đề *</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Danh mục *</label>
+                            <select class="form-select" id="category" name="category" required>
+                                <option value="">Chọn danh mục</option>
+                                <option value="quantum-basics">Cơ bản Quantum</option>
+                                <option value="quantum-gates">Cổng Quantum</option>
+                                <option value="algorithms">Thuật toán</option>
+                                <option value="applications">Ứng dụng</option>
+                                <option value="news">Sự kiện</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="excerpt" class="form-label">Tóm tắt</label>
+                            <textarea class="form-control" id="excerpt" name="excerpt" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Nội dung *</label>
+                            <textarea class="form-control" id="content" name="content" rows="10" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="tags" class="form-label">Tags (phân cách bằng dấu phẩy)</label>
+                            <input type="text" class="form-control" id="tags" name="tags"
+                                placeholder="quantum, gates, algorithm">
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label">Trạng thái *</label>
+                            <select class="form-select" id="status" name="status" required>
+                                <option value="draft">Nháp</option>
+                                <option value="published">Xuất bản</option>
+                                <option value="archived">Lưu trữ</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="savePost()">
+                        <span class="btn-text">Lưu</span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Modal (activity-post.html) -->
+    <div class="modal fade" id="activityModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="activityModalTitle">Tạo hoạt động</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="activityForm">
+                        <input type="hidden" id="activityId" name="activityId">
+                        <input type="hidden" name="type" value="activity">
+                        <div class="mb-3">
+                            <label for="activityTitle" class="form-label">Tên hoạt động *</label>
+                            <input type="text" class="form-control" id="activityTitle" name="title" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="activityType" class="form-label">Loại hoạt động *</label>
+                                    <select class="form-select" id="activityType" name="activity_type" required>
+                                        <option value="">Chọn loại hoạt động</option>
+                                        <option value="simulation">Mô phỏng</option>
+                                        <option value="exercise">Bài tập</option>
+                                        <option value="quiz">Câu hỏi</option>
+                                        <option value="experiment">Thí nghiệm</option>
+                                        <option value="tutorial">Hướng dẫn</option>
+                                        <option value="challenge">Thử thách</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="activityDifficulty" class="form-label">Độ khó *</label>
+                                    <select class="form-select" id="activityDifficulty" name="difficulty" required>
+                                        <option value="">Chọn độ khó</option>
+                                        <option value="beginner">Cơ bản</option>
+                                        <option value="intermediate">Trung bình</option>
+                                        <option value="advanced">Nâng cao</option>
+                                        <option value="expert">Chuyên gia</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="activityDuration" class="form-label">Thời gian hoàn thành (phút)</label>
+                                    <input type="number" class="form-control" id="activityDuration" name="duration"
+                                        min="1" placeholder="30">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="activityPoints" class="form-label">Điểm thưởng</label>
+                                    <input type="number" class="form-control" id="activityPoints" name="points" min="0"
+                                        placeholder="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="activityDescription" class="form-label">Mô tả hoạt động *</label>
+                            <textarea class="form-control" id="activityDescription" name="content" rows="6" required
+                                placeholder="Mô tả chi tiết về hoạt động..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="activityInstructions" class="form-label">Hướng dẫn thực hiện</label>
+                            <textarea class="form-control" id="activityInstructions" name="instructions" rows="4"
+                                placeholder="Các bước thực hiện hoạt động..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="activityResources" class="form-label">Tài nguyên cần thiết</label>
+                            <textarea class="form-control" id="activityResources" name="resources" rows="3"
+                                placeholder="Danh sách tài nguyên, công cụ cần thiết..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="activityTags" class="form-label">Tags (phân cách bằng dấu phẩy)</label>
+                            <input type="text" class="form-control" id="activityTags" name="tags"
+                                placeholder="simulation, gates, beginner">
+                        </div>
+                        <div class="mb-3">
+                            <label for="activityStatus" class="form-label">Trạng thái *</label>
+                            <select class="form-select" id="activityStatus" name="status" required>
+                                <option value="draft">Nháp</option>
+                                <option value="published">Xuất bản</option>
+                                <option value="archived">Lưu trữ</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" onclick="saveActivity()">
+                        <span class="btn-text">Lưu</span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../adminJS/config.js"></script>
+    <script src="../adminJS/auth.js"></script>
+    <script src="../adminJS/posts.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Tác động cổng – Qubit đơn</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjs@11.11.0/lib/browser/math.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+        />
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+        ></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body);"
+        ></script>
+        <link rel="stylesheet" href="../css/styles.css" />
+    </head>
+    <body>
+        <!-- Header -->
+        <header
+            class="bg-black text-white p-4 flex justify-between items-center"
+        >
+            <div class="text-xl font-bold">QUANTUM GATES</div>
+            <nav class="space-x-6 text-sm">
+                <a href="index.html" class="hover:underline">Trang chủ</a>
+                <a href="Congluongtu.html" class="hover:underline"
+                    >Cổng lượng tử</a
+                >
+                <a href="BaiViet.html" class="hover:underline">Bài viết</a>
+                <a href="HoatDong.html" class="hover:underline">Hoạt động</a>
+                <a href="Sukien.html" class="hover:underline">Sự kiện</a>
+                <a href="LienHe.html" class="hover:underline">Liên hệ</a>
+                <a href="HoiVien.html" class="hover:underline">Hội viên</a>
+                <button id="button_control"></button>
+            </nav>
+        </header>
+
+        <main class="mt-6 flex flex-col items-center">
+            <h1 class="text-4xl font-bold text-gray-900 text-center mb-2">
+                🧪 TÁC ĐỘNG CỔNG QUANTUM
+            </h1>
+            <p class="text-center italic text-orange-600 text-lg mb-6">
+                "Chọn trạng thái và loại cổng lượng tử để mô phỏng"
+            </p>
+
+            <div class="bg-white rounded-xl shadow-md p-6 w-full max-w-4xl">
+                <!-- Chọn trạng thái đầu vào -->
+                <label for="inputState" class="block mb-2 font-bold"
+                    >Trạng thái đầu vào:</label
+                >
+                <select id="inputState" class="mb-4 p-2 border rounded w-full">
+                    <option value="0">|0⟩</option>
+                    <option value="1">|1⟩</option>
+                </select>
+
+                <!-- Chọn loại cổng -->
+                <label for="gateSelect" class="block mb-2 font-bold"
+                    >Chọn loại cổng:</label
+                >
+                <select id="gateSelect" class="mb-6 p-2 border rounded w-full">
+                    <option value="H">Hadamard</option>
+                    <option value="X">Pauli-X</option>
+                    <option value="Y">Pauli-Y</option>
+                    <option value="Z">Pauli-Z</option>
+                    <option value="S">S</option>
+                    <option value="T">T</option>
+                </select>
+
+                <!-- Nút mô phỏng -->
+                <div class="flex justify-center mb-6">
+                    <button onclick="runGate()" class="main-button">
+                        Mô phỏng
+                    </button>
+                </div>
+
+                <!-- Biểu đồ biên độ -->
+                <div class="w-full max-w-md mx-auto mb-8">
+                    <canvas id="stateChart" class="w-full h-64"></canvas>
+                </div>
+
+                <!-- Biểu đồ phần thực/ảo -->
+                <div class="w-full max-w-2xl mx-auto">
+                    <h3
+                        class="text-lg font-semibold text-gray-800 mb-2 text-center"
+                    >
+                        Biểu đồ biên độ phức (Re/Im)
+                    </h3>
+                    <canvas
+                        id="complexChart"
+                        class="w-full h-64 bg-white rounded shadow"
+                    ></canvas>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer
+            class="bg-black text-white p-6 mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm"
+        >
+            <div>
+                <h3 class="font-bold mb-2">VỀ CHÚNG TÔI</h3>
+                <p>Liên hệ: quantumgates@example.com</p>
+                <p>Chính sách</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">CỔNG LƯỢNG TỬ</h3>
+                <p>Hadamard</p>
+                <p>Pauli-X</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">TÀI NGUYÊN</h3>
+                <p>Tài liệu học</p>
+                <p>Biểu đồ trạng thái</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">LIÊN HỆ</h3>
+                <p>Trường Đại học Kỹ thuật - Cần Thơ</p>
+                <p>SĐT: 0385 316 325</p>
+            </div>
+        </footer>
+
+        <!-- JS kế thừa -->
+        <script src="../js/Main.js"></script>
+        <script>
+            function runGate() {
+                const gate = document.getElementById("gateSelect").value;
+                switch (gate) {
+                    case "H":
+                        simulateHadamard();
+                        break;
+                    case "X":
+                        simulatePauliX();
+                        break;
+                    case "Y":
+                        simulatePauliY();
+                        break;
+                    case "Z":
+                        simulatePauliZ();
+                        break;
+                    case "S":
+                        simulateSGate();
+                        break;
+                    case "T":
+                        simulateTGate();
+                        break;
+                }
+            }
+        </script>
+    </body>
+</html>

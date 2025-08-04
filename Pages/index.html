@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <title>TRANG CHỦ</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="../css/style.css" />
+        <link
+            href="https://unpkg.com/aos@2.3.4/dist/aos.css"
+            rel="stylesheet"
+        />
+        <style>
+            #button_control {
+                background: #e53935;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                font-weight: 600;
+                font-size: 14px;
+                border-radius: 12px;
+                cursor: pointer;
+                box-shadow: 0 6px 16px -4px rgba(229, 57, 53, 0.6);
+                transition: transform 0.1s, filter 0.1s;
+                display: inline-block;
+                line-height: 1;
+            }
+            #button_control:hover {
+                filter: brightness(1.05);
+                transform: translateY(-1px);
+            }
+            #button_control:active {
+                transform: translateY(1px);
+                box-shadow: 0 4px 12px -2px rgba(229, 57, 53, 0.6);
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+        <!-- Header -->
+        <header
+            class="bg-black text-white p-4 flex justify-between items-center"
+        >
+            <div class="text-xl font-bold">QUANTUM GATES</div>
+            <nav class="space-x-6 text-sm">
+                <a href="index.html" class="hover:underline font-bold"
+                    >Trang chủ</a
+                >
+                <a href="Congluongtu.html" class="hover:underline"
+                    >Cổng lượng tử</a
+                >
+                <a href="BaiViet.html" class="hover:underline">Bài viết</a>
+                <a href="HoatDong.html" class="hover:underline">Hoạt động</a>
+                <a href="Sukien.html" class="hover:underline">Sự kiện</a>
+                <a href="LienHe.html" class="hover:underline">Liên hệ</a>
+                <a href="HoiVien.html" class="hover:underline">Hội viên</a>
+                <button id="button_control"></button>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <main class="text-center py-16 px-4">
+            <!-- Tiêu đề chính -->
+            <h1 class="text-4xl font-bold mb-6 leading-snug">
+                KHẢO SÁT & MÔ PHỎNG CỔNG LƯỢNG TỬ
+            </h1>
+
+            <!-- Slogan -->
+            <p
+                class="text-xl italic text-amber-600 font-semibold mt-4 mb-10 leading-relaxed"
+            >
+                “Hiểu được lượng tử, bạn hiểu được nền tảng của thế giới”
+            </p>
+
+            <!-- Banner hình ảnh -->
+            <div class="flex justify-center px-4 mt-8" data-aos="fade-right">
+                <img
+                    src="../images/banner-trangchu.png"
+                    alt="Quantum Banner"
+                    class="w-full max-w-screen-xl h-[460px] object-cover rounded-xl shadow-xl"
+                />
+            </div>
+
+            <!-- SECTION GIỚI THIỆU -->
+            <section class="w-full bg-[#f9fafb] py-12">
+                <div
+                    class="max-w-screen-xl mx-auto px-4 text-center text-gray-700"
+                    data-aos="fade-up"
+                >
+                    <h2 class="text-2xl font-bold text-amber-600 mb-4">
+                        Tính toán lượng tử là gì?
+                    </h2>
+                    <p class="text-base leading-relaxed">
+                        Tính toán lượng tử là lĩnh vực nghiên cứu sử dụng các
+                        nguyên lý của cơ học lượng tử như chồng chập
+                        (superposition) và rối lượng tử (entanglement) để xử lý
+                        và lưu trữ thông tin. Không giống như máy tính cổ điển
+                        với bit nhị phân 0 hoặc 1, máy tính lượng tử sử dụng
+                        <strong>qubit</strong> – đơn vị thông tin có thể tồn tại
+                        ở cả hai trạng thái cùng lúc.
+                    </p>
+                    <p class="text-base leading-relaxed mt-4">
+                        Việc <strong>mô phỏng các cổng lượng tử</strong> giúp
+                        người học hình dung rõ hơn cách thức các phép toán lượng
+                        tử được thực hiện, từ đó hiểu sâu hơn về sức mạnh và cơ
+                        chế hoạt động của máy tính lượng tử trong thực tế.
+                    </p>
+
+                    <a
+                        href="quantum-intro.html"
+                        class="inline-block mt-6 px-6 py-3 bg-amber-500 text-white font-semibold rounded-full shadow hover:bg-amber-600 transition duration-300"
+                    >
+                        🔍 Tìm hiểu thêm
+                    </a>
+                </div>
+            </section>
+
+            <!-- AOS SCRIPT -->
+            <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+            <script>
+                AOS.init();
+            </script>
+
+            <!-- Khối 3 ô có hiệu ứng hover phóng to -->
+            <section class="w-full max-w-screen-xl mx-auto px-4 mt-12">
+                <div class="flex flex-wrap justify-between items-stretch gap-4">
+                    <!-- Ô 1 -->
+                    <div class="relative group w-full sm:w-[30%] aspect-square">
+                        <!-- Ô nhỏ -->
+                        <div
+                            class="bg-white rounded-lg shadow p-3 text-center flex flex-col justify-center h-full transform transition duration-300 group-hover:scale-105"
+                        >
+                            <h2 class="text-lg font-bold text-amber-600 mb-2">
+                                Giới thiệu
+                            </h2>
+                            <p class="text-gray-700 text-sm">
+                                Mô phỏng trực quan các cổng lượng tử cho người
+                                học.
+                            </p>
+                        </div>
+
+                        <!-- Zoom to -->
+                        <div
+                            class="absolute inset-0 z-50 hidden group-hover:flex items-center justify-center"
+                        >
+                            <div
+                                class="bg-white p-6 rounded-xl shadow-2xl w-[95vw] max-w-3xl text-center scale-100 transform transition duration-300"
+                            >
+                                <h2
+                                    class="text-2xl font-bold text-amber-600 mb-4"
+                                >
+                                    Giới thiệu
+                                </h2>
+                                <p class="text-gray-700 text-lg">
+                                    Mô phỏng trực quan các cổng lượng tử giúp
+                                    người học dễ tiếp cận và hình dung.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ô 2 -->
+                    <div class="relative group w-full sm:w-[30%] aspect-square">
+                        <div
+                            class="bg-white rounded-lg shadow p-3 text-center flex flex-col justify-center h-full transform transition duration-300 group-hover:scale-105"
+                        >
+                            <h2 class="text-lg font-bold text-amber-600 mb-2">
+                                Tính năng
+                            </h2>
+                            <p class="text-gray-700 text-sm">
+                                Mô phỏng Hadamard, Pauli-X/Y/Z, CNOT và nhiều
+                                hơn.
+                            </p>
+                        </div>
+                        <div
+                            class="absolute inset-0 z-50 hidden group-hover:flex items-center justify-center"
+                        >
+                            <div
+                                class="bg-white p-6 rounded-xl shadow-2xl w-[95vw] max-w-3xl text-center scale-100 transform transition duration-300"
+                            >
+                                <h2
+                                    class="text-2xl font-bold text-amber-600 mb-4"
+                                >
+                                    Tính năng
+                                </h2>
+                                <p class="text-gray-700 text-lg">
+                                    Mô phỏng đầy đủ Hadamard, Pauli-X/Y/Z, CNOT
+                                    kèm biểu đồ và toán học.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ô 3 -->
+                    <div class="relative group w-full sm:w-[30%] aspect-square">
+                        <div
+                            class="bg-white rounded-lg shadow p-3 text-center flex flex-col justify-center h-full transform transition duration-300 group-hover:scale-105"
+                        >
+                            <h2 class="text-lg font-bold text-amber-600 mb-2">
+                                Ứng dụng
+                            </h2>
+                            <p class="text-gray-700 text-sm">
+                                Hỗ trợ học tập, giảng dạy và nghiên cứu lượng
+                                tử.
+                            </p>
+                        </div>
+                        <div
+                            class="absolute inset-0 z-50 hidden group-hover:flex items-center justify-center"
+                        >
+                            <div
+                                class="bg-white p-6 rounded-xl shadow-2xl w-[95vw] max-w-3xl text-center scale-100 transform transition duration-300"
+                            >
+                                <h2
+                                    class="text-2xl font-bold text-amber-600 mb-4"
+                                >
+                                    Ứng dụng
+                                </h2>
+                                <p class="text-gray-700 text-lg">
+                                    Giúp sinh viên, giảng viên, và nhà nghiên
+                                    cứu dễ dàng mô phỏng và hiểu cổng lượng tử.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Video giới thiệu (tự chạy khi mở trang) -->
+            <div class="flex justify-center my-12 px-4">
+                <iframe
+                    class="w-full max-w-screen-xl aspect-video rounded-xl shadow-xl"
+                    src="https://www.youtube.com/embed/Kl6pUNEaR-4?autoplay=1&mute=1"
+                    title="Giới thiệu về tính toán lượng tử"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                >
+                </iframe>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer
+            class="bg-black text-white p-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm"
+        >
+            <div>
+                <h3 class="font-bold mb-2">VỀ CHÚNG TÔI</h3>
+                <p>Liên hệ: quantumgates@example.com</p>
+                <p>Chính sách</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">CỔNG LƯỢNG TỬ</h3>
+                <p>Hadamard</p>
+                <p>Pauli-X</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">TÀI NGUYÊN</h3>
+                <p>Tài liệu học</p>
+                <p>Biểu đồ trạng thái</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">LIÊN HỆ</h3>
+                <p>Trường Đại học Kỹ thuật - Cần Thơ</p>
+                <p>SĐT: 0385 316 325</p>
+            </div>
+        </footer>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const btn = document.getElementById("button_control");
+                if (!btn) return;
+
+                const token = localStorage.getItem("token");
+
+                const setLogout = () => {
+                    btn.textContent = "Đăng xuất";
+                    btn.onclick = () => {
+                        localStorage.removeItem("token");
+                        location.reload();
+                    };
+                };
+
+                const setLogin = () => {
+                    btn.textContent = "Đăng nhập";
+                    btn.onclick = () => {
+                        window.location.href = "/Pages/DangNhap.html";
+                    };
+                };
+
+                if (token) {
+                    setLogout();
+                } else {
+                    setLogin();
+                }
+            });
+        </script>
+    </body>
+</html>

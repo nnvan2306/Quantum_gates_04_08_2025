@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chi tiết bài viết</title>
+        <link rel="stylesheet" href="detail.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <!-- Background Elements -->
+        <div class="bg-gradient"></div>
+        <div class="bg-pattern"></div>
+
+        <!-- Main Container -->
+        <div class="container">
+            <!-- Loading State -->
+            <div id="loading" class="loading-wrapper">
+                <div class="loading-content">
+                    <div class="loading-spinner">
+                        <div class="spinner-ring"></div>
+                        <div class="spinner-ring"></div>
+                        <div class="spinner-ring"></div>
+                    </div>
+                    <h3>Đang tải bài viết...</h3>
+                    <p>Vui lòng chờ trong giây lát</p>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="error" class="error-wrapper" style="display: none">
+                <div class="error-content">
+                    <div class="error-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                        >
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="15" y1="9" x2="9" y2="15"></line>
+                            <line x1="9" y1="9" x2="15" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h2>Oops! Có lỗi xảy ra</h2>
+                    <p id="error-message">Không thể tải bài viết</p>
+                    <button onclick="location.reload()" class="retry-button">
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                        >
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <polyline points="1 20 1 14 7 14"></polyline>
+                            <path
+                                d="m3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"
+                            ></path>
+                        </svg>
+                        Thử lại
+                    </button>
+                </div>
+            </div>
+
+            <!-- Post Content -->
+            <article id="post" class="post-wrapper" style="display: none">
+                <!-- Hero Section -->
+                <div class="hero-section">
+                    <div class="hero-background">
+                        <div class="hero-overlay"></div>
+                    </div>
+                    <div class="hero-content">
+                        <div class="post-meta-badges">
+                            <span id="category" class="category-badge"></span>
+                            <div class="stats-badges">
+                                <span class="stat-badge">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+                                        ></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                    <span id="views"></span>
+                                </span>
+                                <span class="stat-badge" id="button-like">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                                        ></path>
+                                    </svg>
+                                    <span id="likes"></span>
+                                </span>
+                                <span class="stat-badge" style="display: none">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                    >
+                                        <path
+                                            d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                                        ></path>
+                                    </svg>
+                                    <span id="comments"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <h1 id="title" class="hero-title"></h1>
+                        <p id="excerpt" class="hero-excerpt"></p>
+                    </div>
+                </div>
+
+                <!-- Author Section -->
+                <div class="author-section">
+                    <div class="author-card">
+                        <div class="author-avatar">
+                            <span id="author-initial"></span>
+                            <div class="avatar-ring"></div>
+                        </div>
+                        <div class="author-info">
+                            <h3 id="author-name"></h3>
+                            <p id="author-username"></p>
+                        </div>
+                        <div class="publish-info">
+                            <div class="publish-date">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                >
+                                    <rect
+                                        x="3"
+                                        y="4"
+                                        width="18"
+                                        height="18"
+                                        rx="2"
+                                        ry="2"
+                                    ></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span id="published-date"></span>
+                            </div>
+                            <div class="update-date">
+                                <span id="updated-date"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Section -->
+                <div class="content-section">
+                    <div class="content-wrapper">
+                        <div id="content" class="post-content"></div>
+                    </div>
+                </div>
+
+                <!-- Tags & Meta Section -->
+                <div class="meta-section">
+                    <div class="tags-wrapper">
+                        <h4 class="section-title">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"
+                                ></path>
+                                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                            </svg>
+                            Tags
+                        </h4>
+                        <div id="tags" class="tags-container"></div>
+                    </div>
+
+                    <div class="metadata-wrapper">
+                        <h4 class="section-title">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                            >
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                            </svg>
+                            Thông tin bài viết
+                        </h4>
+                        <div class="metadata-grid">
+                            <div class="meta-item">
+                                <span class="meta-label">ID</span>
+                                <span id="post-id" class="meta-value"></span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Trạng thái</span>
+                                <span
+                                    id="status"
+                                    class="meta-value status-badge"
+                                ></span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Loại</span>
+                                <span id="post-type" class="meta-value"></span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Ngày tạo</span>
+                                <span
+                                    id="created-date"
+                                    class="meta-value"
+                                ></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <script src="detail.js"></script>
+    </body>
+</html>

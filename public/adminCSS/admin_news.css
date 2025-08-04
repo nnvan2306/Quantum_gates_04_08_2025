@@ -1,0 +1,30 @@
+.ql-font-arial {
+  font-family: Arial, sans-serif;
+}
+.ql-font-times {
+  font-family: 'Times New Roman', serif;
+}
+.ql-font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+.ql-font-mono {
+  font-family: monospace;
+}
+.ql-font-serif {
+  font-family: serif;
+}
+.ql-font-sans {
+  font-family: sans-serif;
+}
+
+#preview img {
+  max-width: 100%;
+  height: auto;
+}
+
+.ql-editor img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.5rem auto;
+}

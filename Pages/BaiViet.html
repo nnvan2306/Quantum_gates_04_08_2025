@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Bài viết - Quantum Gates</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="../css/styles.css" />
+    </head>
+    <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+        <!-- Header -->
+        <header
+            class="bg-gradient-to-r from-gray-900 to-black text-white shadow-lg sticky top-0 z-50"
+        >
+            <div
+                class="container mx-auto px-4 py-3 flex justify-between items-center"
+            >
+                <a
+                    href="index.html"
+                    class="text-2xl font-bold bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent"
+                >
+                    QUANTUM GATES
+                </a>
+                <button
+                    id="mobile-menu-button"
+                    class="md:hidden focus:outline-none"
+                >
+                    <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"
+                        ></path>
+                    </svg>
+                </button>
+                <nav
+                    id="main-nav"
+                    class="hidden md:flex items-center space-x-1"
+                >
+                    <a
+                        href="index.html"
+                        class="px-4 py-2 text-sm font-medium hover:bg-gray-800 rounded-lg transition-colors"
+                        >Trang chủ</a
+                    >
+                    <a
+                        href="Congluongtu.html"
+                        class="px-4 py-2 text-sm font-medium hover:bg-gray-800 rounded-lg transition-colors"
+                        >Cổng lượng tử</a
+                    >
+                    <a
+                        href="BaiViet.html"
+                        class="px-4 py-2 text-sm font-medium bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-colors"
+                        >Bài viết</a
+                    >
+                    <a
+                        href="HoatDong.html"
+                        class="px-4 py-2 text-sm font-medium hover:bg-gray-800 rounded-lg transition-colors"
+                        >Hoạt động</a
+                    >
+                    <a
+                        href="Sukien.html"
+                        class="px-4 py-2 text-sm font-medium hover:bg-gray-800 rounded-lg transition-colors"
+                        >Sự kiện</a
+                    >
+                    <a
+                        href="LienHe.html"
+                        class="px-4 py-2 text-sm font-medium hover:bg-gray-800 rounded-lg transition-colors"
+                        >Liên hệ</a
+                    >
+                    <a
+                        href="HoiVien.html"
+                        class="px-4 py-2 text-sm font-medium hover:bg-gray-800 rounded-lg transition-colors"
+                        >Hội viên</a
+                    >
+                    <div
+                        id="auth-buttons"
+                        class="flex items-center space-x-2 ml-4"
+                    >
+                        <a
+                            href="DangNhap.html"
+                            id="login-btn"
+                            class="hidden px-4 py-2 text-sm font-medium bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+                            >Đăng nhập</a
+                        >
+                        <a
+                            href="#"
+                            id="logout-btn"
+                            class="hidden px-4 py-2 text-sm font-medium bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                            onclick="handleLogout(); return false;"
+                            >Đăng xuất</a
+                        >
+                    </div>
+                </nav>
+            </div>
+            <!-- Mobile menu -->
+            <div
+                id="mobile-menu"
+                class="md:hidden hidden bg-gray-900 px-4 py-2"
+            >
+                <a
+                    href="index.html"
+                    class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-800 mb-1"
+                    >Trang chủ</a
+                >
+                <a
+                    href="Congluongtu.html"
+                    class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-800 mb-1"
+                    >Cổng lượng tử</a
+                >
+                <a
+                    href="BaiViet.html"
+                    class="block px-3 py-2 text-sm rounded-lg bg-amber-600 text-white mb-1"
+                    >Bài viết</a
+                >
+                <a
+                    href="HoatDong.html"
+                    class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-800 mb-1"
+                    >Hoạt động</a
+                >
+                <a
+                    href="Sukien.html"
+                    class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-800 mb-1"
+                    >Sự kiện</a
+                >
+                <a
+                    href="LienHe.html"
+                    class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-800 mb-1"
+                    >Liên hệ</a
+                >
+                <a
+                    href="HoiVien.html"
+                    class="block px-3 py-2 text-sm rounded-lg hover:bg-gray-800 mb-2"
+                    >Hội viên</a
+                >
+                <div
+                    id="mobile-auth-buttons"
+                    class="pt-2 border-t border-gray-800"
+                >
+                    <a
+                        href="DangNhap.html"
+                        id="mobile-login-btn"
+                        class="block px-3 py-2 text-sm rounded-lg bg-gray-800 hover:bg-gray-700 text-center mb-2"
+                        >Đăng nhập</a
+                    >
+                    <a
+                        href="#"
+                        id="mobile-logout-btn"
+                        class="hidden px-3 py-2 text-sm rounded-lg bg-red-600 hover:bg-red-700 text-white text-center"
+                        onclick="handleLogout(); return false;"
+                        >Đăng xuất</a
+                    >
+                </div>
+            </div>
+        </header>
+
+        <!-- Main -->
+        <main class="flex-grow container mx-auto px-4 py-8 md:py-12">
+            <div class="text-center mb-12">
+                <h1
+                    class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-amber-500 to-amber-600 bg-clip-text text-transparent"
+                >
+                    Bài viết mới nhất
+                </h1>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Khám phá các bài viết mới nhất về máy tính lượng tử, công
+                    nghệ lượng tử và các phát triển mới trong lĩnh vực này.
+                </p>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading" class="space-y-8 py-8">
+                <!-- Skeleton Loader -->
+                <div
+                    class="bg-white rounded-xl shadow-md overflow-hidden animate-pulse"
+                >
+                    <div class="p-6">
+                        <div class="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
+                        <div class="h-6 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                        <div class="h-4 bg-gray-200 rounded w-5/6 mb-6"></div>
+                        <div class="flex justify-between items-center">
+                            <div class="flex space-x-4">
+                                <div
+                                    class="h-8 w-8 bg-gray-200 rounded-full"
+                                ></div>
+                                <div
+                                    class="h-8 w-8 bg-gray-200 rounded-full"
+                                ></div>
+                            </div>
+                            <div class="h-4 bg-gray-200 rounded w-20"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div
+                id="error"
+                class="hidden max-w-3xl mx-auto bg-red-50 border-l-4 border-red-500 p-4 rounded-lg shadow-md"
+                role="alert"
+            >
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg
+                            class="h-5 w-5 text-red-500"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                clip-rule="evenodd"
+                            ></path>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-red-700 font-medium">
+                            <span id="error-message"
+                                >Không thể tải dữ liệu bài viết.</span
+                            >
+                            <button
+                                onclick="loadPosts()"
+                                class="ml-2 text-red-600 hover:text-red-800 underline focus:outline-none"
+                            >
+                                Thử lại
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Posts Grid -->
+            <div
+                id="events-grid"
+                class="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            >
+                <!-- Posts will be dynamically inserted here -->
+            </div>
+
+            <!-- No Posts State -->
+            <div
+                id="no-events"
+                class="hidden text-center py-16 bg-white rounded-xl shadow-sm"
+            >
+                <div class="max-w-md mx-auto">
+                    <div class="w-24 h-24 mx-auto mb-4 text-gray-300">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1"
+                                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-1">
+                        Chưa có bài viết nào
+                    </h3>
+                    <p class="text-gray-500 mb-6">
+                        Hiện chưa có bài viết nào được đăng tải. Vui lòng quay
+                        lại sau!
+                    </p>
+                    <button
+                        onclick="window.location.reload()"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
+                    >
+                        <svg
+                            class="-ml-1 mr-2 h-4 w-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                            ></path>
+                        </svg>
+                        Tải lại
+                    </button>
+                </div>
+            </div>
+
+            <script>
+                // API Configuration
+                const API_BASE_URL = "http://localhost:3001/api";
+                const LOGIN_URL = "DangNhap.html";
+
+                // API Request Utility
+                async function apiRequest(url, options = {}) {
+                    // Set up headers
+                    const headers = {
+                        "Content-Type": "application/json",
+                        ...options.headers,
+                    };
+
+                    // Add Authorization header with Bearer token if available
+                    const token = localStorage.getItem("token");
+                    if (token) {
+                        headers["Authorization"] = `Bearer ${token}`;
+                    }
+
+                    try {
+                        const response = await fetch(`${API_BASE_URL}${url}`, {
+                            ...options,
+                            headers,
+                        });
+
+                        // Handle unauthorized responses
+                        if (response.status === 401) {
+                            localStorage.removeItem("token");
+                            localStorage.removeItem("user");
+                            window.location.href = `${LOGIN_URL}?redirect=${encodeURIComponent(
+                                window.location.pathname
+                            )}`;
+                            return null;
+                        }
+
+                        const data = await response.json();
+
+                        if (!response.ok) {
+                            throw new Error(data.message || "Đã xảy ra lỗi");
+                        }
+
+                        return data;
+                    } catch (error) {
+                        console.error("API Request Error:", error);
+                        throw error;
+                    }
+                }
+
+                // Check authentication state and update UI
+                function updateAuthUI() {
+                    const isLoggedIn = localStorage.getItem("token") !== null;
+                    const loginBtn = document.getElementById("login-btn");
+                    const logoutBtn = document.getElementById("logout-btn");
+
+                    if (isLoggedIn) {
+                        if (loginBtn) loginBtn.classList.add("hidden");
+                        if (logoutBtn) logoutBtn.classList.remove("hidden");
+                    } else {
+                        if (loginBtn) loginBtn.classList.remove("hidden");
+                        if (logoutBtn) logoutBtn.classList.add("hidden");
+                    }
+                }
+
+                // Check if user is authenticated
+                function isUserAuthenticated() {
+                    return localStorage.getItem("token") !== null;
+                }
+
+                // Show login prompt
+                function showLoginPrompt(action) {
+                    if (
+                        confirm(
+                            `Vui lòng đăng nhập để ${action}. Bạn có muốn chuyển đến trang đăng nhập ngay bây giờ?`
+                        )
+                    ) {
+                        window.location.href = `${LOGIN_URL}?redirect=${encodeURIComponent(
+                            window.location.pathname
+                        )}`;
+                    }
+                }
+
+                // Show alert message
+                function showAlert(type, message) {
+                    const alertContainer = document.createElement("div");
+                    alertContainer.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg ${
+                        type === "error"
+                            ? "bg-red-100 border-l-4 border-red-500 text-red-700"
+                            : type === "success"
+                            ? "bg-green-100 border-l-4 border-green-500 text-green-700"
+                            : "bg-blue-100 border-l-4 border-blue-500 text-blue-700"
+                    }`;
+                    alertContainer.innerHTML = `
+          <p class="font-medium">${message}</p>
+        `;
+
+                    document.body.appendChild(alertContainer);
+
+                    // Auto remove after 5 seconds
+                    setTimeout(() => {
+                        alertContainer.remove();
+                    }, 5000);
+                }
+
+                // Handle logout
+                async function handleLogout(e) {
+                    // e.preventDefault();
+                    try {
+                        const response = await apiRequest("/auth/logout", {
+                            method: "POST",
+                        });
+
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("user");
+                        updateAuthUI();
+
+                        // Reload the page to update the UI
+                        window.location.reload();
+                    } catch (error) {
+                        console.error("Logout error:", error);
+                        // Still clear local storage even if API call fails
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("user");
+                        updateAuthUI();
+                        window.location.reload();
+                    }
+                }
+
+                // Format date to dd/mm/yyyy
+                function formatDate(dateString) {
+                    if (!dateString) return "";
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString("vi-VN");
+                }
+
+                // Format category
+                function formatCategory(category) {
+                    const categories = {
+                        "quantum-computing": "Máy tính lượng tử",
+                        "quantum-physics": "Vật lý lượng tử",
+                        tutorial: "Hướng dẫn",
+                        news: "Tin tức",
+                        research: "Nghiên cứu",
+                        general: "Chung",
+                    };
+                    return categories[category] || category;
+                }
+
+                // Create post card HTML
+                function createPostCard(post) {
+                    const postDate = post.published_at
+                        ? formatDate(post.published_at)
+                        : "";
+                    const excerpt =
+                        post.excerpt || post.content
+                            ? (post.excerpt || post.content.substring(0, 150)) +
+                              "..."
+                            : "Không có mô tả";
+                    const authorName = post.author_name || "Ẩn danh";
+                    const authorInitial = authorName.charAt(0).toUpperCase();
+
+                    return `
+          <article class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+            ${
+                post.featured_image
+                    ? `
+              <div class="h-48 overflow-hidden">
+                <img src="${post.featured_image}" alt="${
+                          post.title || ""
+                      }" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+              </div>`
+                    : ""
+            }
+            <div class="p-6 flex-grow flex flex-col">
+              <div class="flex items-center justify-between mb-3">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                  ${formatCategory(post.category || "general")}
+                </span>
+                <time class="text-xs text-gray-500" datetime="${
+                    post.published_at
+                }">${postDate}</time>
+              </div>
+              
+              <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                ${post.title || "Không có tiêu đề"}
+              </h2>
+              
+              <p class="text-gray-600 mb-4 flex-grow line-clamp-3">${excerpt}</p>
+            <div class="mt-4 pt-4 border-t border-gray-100">
+              <div class="flex items-center space-x-4">
+                <button onclick="handleReaction(${
+                    post.id
+                }, 'like')" class="flex items-center text-gray-500 hover:text-green-600 group">
+                  <div class="p-1.5 rounded-full group-hover:bg-green-50 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"></path>
+                    </svg>
+                  </div>
+                  <span class="ml-1 text-sm font-medium" id="like-count-${
+                      post.id
+                  }">${post.like_count || 0}</span>
+                </button>
+                <button onclick="handleReaction(${
+                    post.id
+                }, 'dislike')" class="flex items-center text-gray-500 hover:text-red-600 group">
+                  <div class="p-1.5 rounded-full group-hover:bg-red-50 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018c.163 0 .326.02.485.06L17 4m0 0v11.5m0 0h2.5a2 2 0 002-2v-5a2 2 0 00-2-2h-2.5"></path>
+                    </svg>
+                  </div>
+                  <span class="ml-1 text-sm font-medium" id="dislike-count-${
+                      post.id
+                  }">${post.dislike_count || 0}</span>
+                </button>
+                <button onclick="toggleComments(${
+                    post.id
+                })" class="flex items-center text-gray-500 hover:text-blue-600 group">
+                  <div class="p-1.5 rounded-full group-hover:bg-blue-50 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                    </svg>
+                  </div>
+                  <span class="ml-1 text-sm font-medium">Bình luận</span>
+                </button>
+                
+                <a href="/Pages/detail.html?id=${
+                    post.id
+                }" target="_blank" class="ml-auto inline-flex items-center text-sm font-medium text-amber-600 hover:text-amber-800 group">
+                  Xem thêm
+                  <svg class="ml-1 w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </a>
+            </div>
+          </div>
+          <!-- Comments Section -->
+          <div id="comments-${
+              post.id
+          }" class="mt-6 pt-4 border-t border-gray-100 hidden">
+            <h4 class="text-sm font-semibold text-gray-700 mb-4 flex items-center">
+              <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+              </svg>
+              Bình luận
+            </h4>
+            
+            <!-- Comments List -->
+            <div id="comments-list-${post.id}" class="space-y-4 mb-4">
+              <div class="text-center py-6">
+                <div class="inline-block animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-amber-500"></div>
+                <p class="mt-2 text-sm text-gray-500">Đang tải bình luận...</p>
+              </div>
+            </div>
+            
+            <!-- Comment Form -->
+            <div class="bg-gray-50 rounded-lg p-3">
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0 h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-medium text-sm">
+                  ${
+                      isUserAuthenticated()
+                          ? localStorage.getItem("user")
+                              ? JSON.parse(localStorage.getItem("user"))
+                                    .username.charAt(0)
+                                    .toUpperCase()
+                              : "U"
+                          : "?"
+                  }
+                </div>
+                <div class="flex-1 min-w-0">
+                  <input 
+                    type="text" 
+                    id="comment-input-${post.id}" 
+                    placeholder="Viết bình luận của bạn..."
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    ${!isUserAuthenticated() ? "disabled" : ""}
+                  >
+                </div>
+                <button 
+                  onclick="postComment(${post.id})" 
+                  class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  ${!isUserAuthenticated() ? "disabled" : ""}
+                >
+                  <svg class="-ml-0.5 mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                  </svg>
+                  Gửi
+                </button>
+              </div>
+              ${
+                  !isUserAuthenticated()
+                      ? `<p class="mt-2 text-xs text-gray-500 text-center">
+                  <a href="DangNhap.html" class="text-amber-600 hover:text-amber-800 font-medium">Đăng nhập</a> để bình luận
+                </p>`
+                      : ""
+              }
+            </div>
+          </div>
+        `;
+                }
+
+                // Load posts from API
+                async function loadPosts() {
+                    const loadingEl = document.getElementById("loading");
+                    const errorEl = document.getElementById("error");
+                    const noPostsEl = document.getElementById("no-events");
+                    const postsGrid = document.getElementById("events-grid");
+
+                    // Show loading, hide others
+                    loadingEl.classList.remove("hidden");
+                    errorEl.classList.add("hidden");
+                    noPostsEl.classList.add("hidden");
+                    postsGrid.innerHTML = "";
+
+                    try {
+                        // Fetch posts from API (filter by post_type='post' and status='published')
+                        const data = await apiRequest(
+                            "/posts?post_type=post&status=published"
+                        );
+
+                        if (!data) return; // Handled by apiRequest
+
+                        loadingEl.classList.add("hidden");
+
+                        if (
+                            data.data &&
+                            data.data.posts &&
+                            data.data.posts.length > 0
+                        ) {
+                            // Add posts to the grid
+                            data.data.posts.forEach((post) => {
+                                postsGrid.innerHTML += createPostCard(post);
+                            });
+                        } else {
+                            // No posts found
+                            noPostsEl.classList.remove("hidden");
+                        }
+                    } catch (error) {
+                        console.error("Error loading posts:", error);
+                        loadingEl.classList.add("hidden");
+                        document.getElementById("error-message").textContent =
+                            error.message || "Đã xảy ra lỗi khi tải bài viết";
+                        errorEl.classList.remove("hidden");
+                    }
+                }
+
+                // Handle like/dislike
+                async function handleReaction(postId, type) {
+                    if (!isUserAuthenticated()) {
+                        showLoginPrompt("thích/bỏ thích bài viết");
+                        return;
+                    }
+
+                    try {
+                        const data = await apiRequest(
+                            `/posts/${postId}/react`,
+                            {
+                                method: "POST",
+                                body: JSON.stringify({ type: type }),
+                            }
+                        );
+
+                        if (!data) return; // Handled by apiRequest
+
+                        // Update the UI with the new reaction counts
+                        if (data.like_count !== undefined) {
+                            const likeCountEl = document.getElementById(
+                                `like-count-${postId}`
+                            );
+                            if (likeCountEl)
+                                likeCountEl.textContent = data.like_count;
+                        }
+                        if (data.dislike_count !== undefined) {
+                            const dislikeCountEl = document.getElementById(
+                                `dislike-count-${postId}`
+                            );
+                            if (dislikeCountEl)
+                                dislikeCountEl.textContent = data.dislike_count;
+                        }
+                    } catch (error) {
+                        console.error("Error updating reaction:", error);
+                        showAlert(
+                            "error",
+                            error.message ||
+                                "Có lỗi xảy ra khi cập nhật phản ứng"
+                        );
+                    }
+                }
+
+                // Toggle comments section
+                function toggleComments(postId) {
+                    const commentsSection = document.getElementById(
+                        `comments-${postId}`
+                    );
+                    if (commentsSection) {
+                        commentsSection.classList.toggle("hidden");
+                        if (!commentsSection.classList.contains("hidden")) {
+                            loadComments(postId);
+                        }
+                        return;
+                    }
+
+                    // If comments section doesn't exist, check auth before creating it
+                    if (!isUserAuthenticated()) {
+                        showLoginPrompt("xem bình luận");
+                        return;
+                    }
+
+                    console.log(`Loading comments for post ${postId}`);
+                }
+
+                // Load comments for a post
+                async function loadComments(postId) {
+                    try {
+                        const response = await apiRequest(
+                            `/posts/${postId}/comments`
+                        );
+
+                        if (!response) return; // Handled by apiRequest
+
+                        const comments = response.data.comments || response;
+                        const commentsContainer = document.getElementById(
+                            `comments-${postId}`
+                        );
+                        if (!commentsContainer) return;
+
+                        // Clear existing comments
+                        commentsContainer.innerHTML = "";
+
+                        // Add comment form
+                        if (isUserAuthenticated()) {
+                            const commentForm = document.createElement("div");
+                            commentForm.className = "mt-4";
+                            commentForm.innerHTML = `
+              <div class="flex space-x-2">
+                <input type="text" id="comment-input-${postId}" 
+                       class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                       placeholder="Viết bình luận...">
+                <button onclick="postComment(${postId})" 
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  Gửi
+                </button>
+              </div>
+            `;
+                            commentsContainer.appendChild(commentForm);
+                        }
+
+                        // Add comments list
+                        const commentsList = document.createElement("div");
+                        commentsList.className = "mt-4 space-y-3";
+
+                        if (comments.length === 0) {
+                            commentsList.innerHTML =
+                                '<p class="text-gray-500 text-sm">Chưa có bình luận nào.</p>';
+                        } else {
+                            comments.forEach((comment) => {
+                                const commentElement =
+                                    document.createElement("div");
+                                commentElement.className =
+                                    "border-t border-gray-200 pt-3";
+                                commentElement.innerHTML = `
+                <div class="flex justify-between items-start">
+                  <div class="font-medium text-sm">${
+                      comment.username || "Ẩn danh"
+                  }</div>
+                  <span class="text-xs text-gray-500">${new Date(
+                      comment.created_at
+                  ).toLocaleString()}</span>
+                </div>
+                <p class="text-sm mt-1">${comment.content}</p>
+              `;
+                                commentsList.appendChild(commentElement);
+                            });
+                        }
+
+                        commentsContainer.appendChild(commentsList);
+                    } catch (error) {
+                        console.error("Error loading comments:", error);
+                        const commentsContainer = document.getElementById(
+                            `comments-${postId}`
+                        );
+                        if (commentsContainer) {
+                            commentsContainer.innerHTML = `
+              <div class="text-red-500 text-sm p-2 bg-red-50 rounded">
+                ${
+                    error.message ||
+                    "Không thể tải bình luận. Vui lòng thử lại sau."
+                }
+              </div>
+            `;
+                        }
+                    }
+                } // Post a comment
+                async function postComment(postId) {
+                    if (!isUserAuthenticated()) {
+                        showLoginPrompt("bình luận");
+                        return;
+                    }
+
+                    const commentInput = document.getElementById(
+                        `comment-input-${postId}`
+                    );
+                    const comment = commentInput.value.trim();
+
+                    if (!comment) {
+                        alert("Vui lòng nhập nội dung bình luận");
+                        return;
+                    }
+
+                    try {
+                        await apiRequest(`/posts/${postId}/comments`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ content: comment }),
+                        });
+
+                        // Clear the input
+                        commentInput.value = "";
+
+                        // Reload comments
+                        await loadComments(postId);
+                    } catch (error) {
+                        console.error("Error posting comment:", error);
+                        showAlert(
+                            "error",
+                            error.message || "Có lỗi xảy ra khi đăng bình luận"
+                        );
+                    }
+                }
+
+                // Mobile menu functionality
+                function setupMobileMenu() {
+                    const mobileMenuButton =
+                        document.getElementById("mobile-menu-button");
+                    const mobileMenu = document.getElementById("mobile-menu");
+
+                    if (mobileMenuButton && mobileMenu) {
+                        mobileMenuButton.addEventListener("click", () => {
+                            const isExpanded =
+                                mobileMenuButton.getAttribute(
+                                    "aria-expanded"
+                                ) === "true";
+                            mobileMenuButton.setAttribute(
+                                "aria-expanded",
+                                !isExpanded
+                            );
+                            mobileMenu.classList.toggle("hidden");
+
+                            // Toggle icon between menu and X
+                            const menuIcon =
+                                mobileMenuButton.querySelector("svg");
+                            if (menuIcon) {
+                                if (isExpanded) {
+                                    menuIcon.innerHTML =
+                                        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+                                } else {
+                                    menuIcon.innerHTML =
+                                        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+                                }
+                            }
+                        });
+
+                        // Close menu when clicking outside
+                        document.addEventListener("click", (e) => {
+                            if (
+                                !mobileMenu.contains(e.target) &&
+                                !mobileMenuButton.contains(e.target)
+                            ) {
+                                mobileMenu.classList.add("hidden");
+                                mobileMenuButton.setAttribute(
+                                    "aria-expanded",
+                                    "false"
+                                );
+                                const menuIcon =
+                                    mobileMenuButton.querySelector("svg");
+                                if (menuIcon) {
+                                    menuIcon.innerHTML =
+                                        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+                                }
+                            }
+                        });
+                    }
+                }
+
+                // Close mobile menu when clicking on a link
+                function setupMobileMenuLinks() {
+                    const mobileLinks =
+                        document.querySelectorAll("#mobile-menu a");
+                    const mobileMenu = document.getElementById("mobile-menu");
+                    const mobileMenuButton =
+                        document.getElementById("mobile-menu-button");
+
+                    mobileLinks.forEach((link) => {
+                        link.addEventListener("click", () => {
+                            mobileMenu.classList.add("hidden");
+                            mobileMenuButton.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+                            const menuIcon =
+                                mobileMenuButton.querySelector("svg");
+                            if (menuIcon) {
+                                menuIcon.innerHTML =
+                                    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+                            }
+                        });
+                    });
+                }
+
+                // Update auth UI for mobile
+                function updateMobileAuthUI() {
+                    const isLoggedIn = localStorage.getItem("token") !== null;
+                    const mobileLoginBtn =
+                        document.getElementById("mobile-login-btn");
+                    const mobileLogoutBtn =
+                        document.getElementById("mobile-logout-btn");
+
+                    if (isLoggedIn) {
+                        if (mobileLoginBtn)
+                            mobileLoginBtn.classList.add("hidden");
+                        if (mobileLogoutBtn)
+                            mobileLogoutBtn.classList.remove("hidden");
+                    } else {
+                        if (mobileLoginBtn)
+                            mobileLoginBtn.classList.remove("hidden");
+                        if (mobileLogoutBtn)
+                            mobileLogoutBtn.classList.add("hidden");
+                    }
+                }
+
+                // Initialize page
+                document.addEventListener("DOMContentLoaded", function () {
+                    updateAuthUI();
+                    updateMobileAuthUI();
+                    setupMobileMenu();
+                    setupMobileMenuLinks();
+                    loadPosts();
+                });
+
+                // Close mobile menu when window is resized to desktop
+                window.addEventListener("resize", function () {
+                    if (window.innerWidth >= 768) {
+                        // md breakpoint
+                        const mobileMenu =
+                            document.getElementById("mobile-menu");
+                        const mobileMenuButton =
+                            document.getElementById("mobile-menu-button");
+                        if (mobileMenu && mobileMenuButton) {
+                            mobileMenu.classList.add("hidden");
+                            mobileMenuButton.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+                            const menuIcon =
+                                mobileMenuButton.querySelector("svg");
+                            if (menuIcon) {
+                                menuIcon.innerHTML =
+                                    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+                            }
+                        }
+                    }
+                });
+            </script>
+        </main>
+
+        <!-- Footer -->
+        <footer
+            class="bg-black text-white p-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm"
+        >
+            <div>
+                <h3 class="font-bold mb-2">VỀ CHÚNG TÔI</h3>
+                <p>Liên hệ: quantumgates@example.com</p>
+                <p>Chính sách</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">CỔNG LƯỢNG TỬ</h3>
+                <p>Hadamard</p>
+                <p>Pauli-X</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">TÀI NGUYÊN</h3>
+                <p>Tài liệu học</p>
+                <p>Biểu đồ trạng thái</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">LIÊN HỆ</h3>
+                <p>Trường Đại học Kỹ thuật - Cần Thơ</p>
+                <p>SĐT: 0385 316 325</p>
+            </div>
+        </footer>
+    </body>
+</html>

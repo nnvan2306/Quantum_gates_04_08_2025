@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Sự kiện - Quantum Gates</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="../css/styles.css" />
+
+        <style>
+            #button_control {
+                background: #e53935;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                font-weight: 600;
+                font-size: 14px;
+                border-radius: 12px;
+                cursor: pointer;
+                box-shadow: 0 6px 16px -4px rgba(229, 57, 53, 0.6);
+                transition: transform 0.1s, filter 0.1s;
+                display: inline-block;
+                line-height: 1;
+            }
+            #button_control:hover {
+                filter: brightness(1.05);
+                transform: translateY(-1px);
+            }
+            #button_control:active {
+                transform: translateY(1px);
+                box-shadow: 0 4px 12px -2px rgba(229, 57, 53, 0.6);
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+        <!-- Header -->
+        <header
+            class="bg-black text-white p-4 flex justify-between items-center"
+        >
+            <div class="text-xl font-bold">QUANTUM GATES</div>
+            <nav class="space-x-6 text-sm">
+                <a href="index.html" class="hover:underline">Trang chủ</a>
+                <a href="Congluongtu.html" class="hover:underline"
+                    >Cổng lượng tử</a
+                >
+                <a href="BaiViet.html" class="hover:underline">Bài viết</a>
+                <a href="HoatDong.html" class="hover:underline">Hoạt động</a>
+                <a href="Sukien.html" class="hover:underline">Sự kiện</a>
+                <a href="LienHe.html" class="hover:underline">Liên hệ</a>
+                <a href="HoiVien.html" class="hover:underline">Hội viên</a>
+                <button id="button_control"></button>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <main class="flex-grow max-w-5xl mx-auto py-12 px-4">
+            <h1 class="text-3xl font-bold mb-8 text-center text-amber-600">
+                📰 Sự kiện
+            </h1>
+
+            <!-- Loading State -->
+            <div id="loading" class="text-center py-8">
+                <div
+                    class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500 mx-auto"
+                ></div>
+                <p class="mt-4 text-gray-600">Đang tải sự kiện...</p>
+            </div>
+
+            <!-- Error State -->
+            <div
+                id="error"
+                class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+                role="alert"
+            >
+                <strong class="font-bold">Lỗi! </strong>
+                <span id="error-message" class="block sm:inline"
+                    >Không thể tải dữ liệu sự kiện.</span
+                >
+                <button
+                    onclick="loadEvents()"
+                    class="absolute top-0 bottom-0 right-0 px-4 py-3"
+                >
+                    <span class="text-red-600 hover:text-red-800">Thử lại</span>
+                </button>
+            </div>
+
+            <!-- Events Grid -->
+            <div id="events-grid" class="grid gap-6 md:grid-cols-2">
+                <!-- Events will be dynamically inserted here -->
+            </div>
+
+            <!-- No Events State -->
+            <div id="no-events" class="hidden text-center py-12">
+                <p class="text-gray-500">Hiện chưa có sự kiện nào.</p>
+            </div>
+
+            <script>
+                // Include Post Interactions JS
+                document.write(
+                    '<script src="../Js/postInteractions.js"><\/script>'
+                );
+            </script>
+
+            <script>
+                // API Base URL - Update this to your actual API URL
+                // const API_BASE_URL = 'http://localhost:3001/api';
+
+                // Format date to dd/mm/yyyy
+                function formatDate(dateString) {
+                    if (!dateString) return "";
+                    const date = new Date(dateString);
+                    return date.toLocaleDateString("vi-VN");
+                }
+
+                // Format date and time
+                function formatDateTime(dateTimeString) {
+                    if (!dateTimeString) return "";
+                    const date = new Date(dateTimeString);
+                    return date.toLocaleString("vi-VN", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    });
+                }
+
+                // Create event card HTML
+                function createEventCard(event) {
+                    const eventDate = event.start_date
+                        ? formatDate(event.start_date)
+                        : "";
+                    const eventTime = event.start_date
+                        ? formatDateTime(event.start_date)
+                        : "";
+                    const location = event.location
+                        ? `📍 ${event.location}`
+                        : "";
+                    const capacity = event.capacity
+                        ? `👥 ${event.capacity} người`
+                        : "";
+
+                    // Add interaction controls
+                    const interactionControls = createInteractionControls(
+                        event.id,
+                        "event"
+                    );
+
+                    return `
+          <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+            <h2 class="text-xl font-semibold mb-2">${
+                event.title || "Không có tiêu đề"
+            }</h2>
+            ${
+                eventDate
+                    ? `<p class="text-sm text-gray-500 mb-1">📅 ${eventDate}</p>`
+                    : ""
+            }
+            ${
+                eventTime
+                    ? `<p class="text-sm text-gray-500 mb-3">⏰ ${eventTime}</p>`
+                    : ""
+            }
+            ${
+                location || capacity
+                    ? `
+              <div class="flex items-center text-sm text-gray-600 space-x-4 mb-3">
+                ${location ? `<span>${location}</span>` : ""}
+                ${capacity ? `<span>${capacity}</span>` : ""}
+              </div>
+            `
+                    : ""
+            }
+            <p class="text-gray-700 mb-4">${
+                event.content || "Không có mô tả"
+            }</p>
+            ${
+                event.requirements
+                    ? `
+              <div class="mt-4 pt-4 border-t border-gray-100">
+                <h3 class="font-medium text-gray-800 mb-2">Yêu cầu tham gia:</h3>
+                <p class="text-sm text-gray-600">${event.requirements}</p>
+              </div>
+            `
+                    : ""
+            }
+            
+            <!-- Interaction Controls -->
+            ${interactionControls}
+          </div>
+        `;
+                }
+
+                // Load events from API
+                async function loadEvents() {
+                    const loadingEl = document.getElementById("loading");
+                    const errorEl = document.getElementById("error");
+                    const noEventsEl = document.getElementById("no-events");
+                    const eventsGrid = document.getElementById("events-grid");
+
+                    // Show loading, hide others
+                    loadingEl.classList.remove("hidden");
+                    errorEl.classList.add("hidden");
+                    noEventsEl.classList.add("hidden");
+                    eventsGrid.innerHTML = "";
+
+                    try {
+                        // Fetch events from API (filter by post_type='event' and status='published')
+                        const response = await fetch(
+                            `${API_BASE_URL}/posts?post_type=event&status=published`
+                        );
+
+                        if (!response.ok) {
+                            throw new Error("Không thể tải dữ liệu sự kiện");
+                        }
+
+                        const data = await response.json();
+
+                        // Hide loading
+                        loadingEl.classList.add("hidden");
+
+                        if (
+                            data.data &&
+                            data.data.posts &&
+                            data.data.posts.length > 0
+                        ) {
+                            // Add events to the grid
+                            data.data.posts.forEach((event) => {
+                                eventsGrid.innerHTML += createEventCard(event);
+                            });
+                        } else {
+                            // No events found
+                            noEventsEl.classList.remove("hidden");
+                        }
+                    } catch (error) {
+                        console.error("Error loading events:", error);
+                        loadingEl.classList.add("hidden");
+                        document.getElementById("error-message").textContent =
+                            error.message || "Đã xảy ra lỗi khi tải sự kiện";
+                        errorEl.classList.remove("hidden");
+                    }
+                }
+
+                // Load events when page loads
+                document.addEventListener("DOMContentLoaded", loadEvents);
+            </script>
+        </main>
+
+        <!-- Footer -->
+        <footer
+            class="bg-black text-white p-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm"
+        >
+            <div>
+                <h3 class="font-bold mb-2">VỀ CHÚNG TÔI</h3>
+                <p>Liên hệ: quantumgates@example.com</p>
+                <p>Chính sách</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">CỔNG LƯỢNG TỬ</h3>
+                <p>Hadamard</p>
+                <p>Pauli-X</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">TÀI NGUYÊN</h3>
+                <p>Tài liệu học</p>
+                <p>Biểu đồ trạng thái</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">LIÊN HỆ</h3>
+                <p>Trường Đại học Kỹ thuật - Cần Thơ</p>
+                <p>SĐT: 0385 316 325</p>
+            </div>
+        </footer>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const btn = document.getElementById("button_control");
+                if (!btn) return;
+
+                const token = localStorage.getItem("token");
+
+                const setLogout = () => {
+                    btn.textContent = "Đăng xuất";
+                    btn.onclick = () => {
+                        localStorage.removeItem("token");
+                        location.reload();
+                    };
+                };
+
+                const setLogin = () => {
+                    btn.textContent = "Đăng nhập";
+                    btn.onclick = () => {
+                        window.location.href = "/Pages/DangNhap.html";
+                    };
+                };
+
+                if (token) {
+                    setLogout();
+                } else {
+                    setLogin();
+                }
+            });
+        </script>
+    </body>
+</html>

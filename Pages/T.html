@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Cổng T</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjs@11.11.0/lib/browser/math.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
+        />
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+        ></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            onload="renderMathInElement(document.body);"
+        ></script>
+        <link rel="stylesheet" href="../css/styles.css" />
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <div class="text-xl font-bold">QUANTUM GATES</div>
+            <nav class="space-x-6 text-sm">
+                <a href="index.html" class="hover:underline">Trang chủ</a>
+                <a href="Congluongtu.html" class="hover:underline"
+                    >Cổng lượng tử</a
+                >
+                <a href="BaiViet.html" class="hover:underline">Bài viết</a>
+                <a href="HoatDong.html" class="hover:underline">Hoạt động</a>
+                <a href="Sukien.html" class="hover:underline">Sự kiện</a>
+                <a href="LienHe.html" class="hover:underline">Liên hệ</a>
+                <a href="HoiVien.html" class="hover:underline">Hội viên</a>
+                <button id="button_control"></button>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <main class="mt-6 flex flex-col items-center">
+            <h1 class="text-4xl font-bold text-gray-900 text-center mb-2">
+                ⏳ CỔNG T
+            </h1>
+            <p class="text-center italic text-purple-600 text-lg mb-6">
+                "Quay pha 45° cho trạng thái |1⟩"
+            </p>
+
+            <div class="bg-white rounded-xl shadow-md p-6 w-full max-w-4xl">
+                <div class="mb-6 text-gray-800 leading-relaxed text-justify">
+                    <p class="mb-4">
+                        Cổng T là một cổng pha đặc biệt trong điện toán lượng
+                        tử, quay pha trạng thái |1⟩ một góc 45°, tương đương
+                        nhân với số phức \( e^{i\pi/4} \). Nó là một trong những
+                        cổng quan trọng để xây dựng các mạch lượng tử phổ quát.
+                    </p>
+                </div>
+
+                <div class="math-box text-blue-800 text-center mb-6">
+                    $$ T = \begin{bmatrix} 1 & 0 \\ 0 & e^{i\pi/4} \end{bmatrix}
+                    $$
+                </div>
+
+                <label for="inputState" class="block mb-2 font-bold"
+                    >Chọn trạng thái đầu vào:</label
+                >
+                <select id="inputState" class="mb-6 p-2 border rounded">
+                    <option value="0">|0⟩</option>
+                    <option value="1">|1⟩</option>
+                </select>
+
+                <!-- Biểu đồ biên độ |c| -->
+                <div class="w-full max-w-md mx-auto my-6">
+                    <canvas id="stateChart" class="w-full h-64"></canvas>
+                </div>
+
+                <!-- Biểu đồ complex -->
+                <div class="w-full max-w-2xl mx-auto mt-8">
+                    <h3
+                        class="text-lg font-semibold text-gray-800 mb-2 text-center"
+                    >
+                        Biểu đồ biên độ phức (Re/Im và |c|)
+                    </h3>
+                    <canvas
+                        id="complexChart"
+                        class="w-full h-64 bg-white rounded shadow"
+                    ></canvas>
+                </div>
+
+                <div class="flex justify-center mt-6">
+                    <button onclick="simulateTGate()" class="main-button">
+                        Mô phỏng T
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer
+            class="bg-black text-white p-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm"
+        >
+            <div>
+                <h3 class="font-bold mb-2">VỀ CHÚNG TÔI</h3>
+                <p>Liên hệ: quantumgates@example.com</p>
+                <p>Chính sách</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">CỔNG LƯỢNG TỬ</h3>
+                <p>Hadamard</p>
+                <p>Pauli-X</p>
+                <p>Pauli-Z</p>
+                <p>S</p>
+                <p>T</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">TÀI NGUYÊN</h3>
+                <p>Tài liệu học</p>
+                <p>Biểu đồ trạng thái</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">LIÊN HỆ</h3>
+                <p>Trường Đại học Kỹ thuật - Cần Thơ</p>
+                <p>SĐT: 0385 316 325</p>
+            </div>
+        </footer>
+        <script src="../js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Chuỗi Cổng – Đa Qubit</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="../css/styles.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+        <script src="../js/Main.js"></script>
+        <style>
+            #button_control {
+                background: #e53935;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                font-weight: 600;
+                font-size: 14px;
+                border-radius: 12px;
+                cursor: pointer;
+                box-shadow: 0 6px 16px -4px rgba(229, 57, 53, 0.6);
+                transition: transform 0.1s, filter 0.1s;
+                display: inline-block;
+                line-height: 1;
+            }
+            #button_control:hover {
+                filter: brightness(1.05);
+                transform: translateY(-1px);
+            }
+            #button_control:active {
+                transform: translateY(1px);
+                box-shadow: 0 4px 12px -2px rgba(229, 57, 53, 0.6);
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+        <!-- Header -->
+        <header
+            class="bg-black text-white p-4 flex justify-between items-center"
+        >
+            <div class="text-xl font-bold">QUANTUM GATES</div>
+            <nav class="space-x-6 text-sm">
+                <a href="index.html" class="hover:underline">Trang chủ</a>
+                <a href="Congluongtu.html" class="hover:underline"
+                    >Cổng lượng tử</a
+                >
+                <a href="BaiViet.html" class="hover:underline">Bài viết</a>
+                <a href="HoatDong.html" class="hover:underline">Hoạt động</a>
+                <a href="Sukien.html" class="hover:underline">Sự kiện</a>
+                <a href="LienHe.html" class="hover:underline">Liên hệ</a>
+                <a href="HoiVien.html" class="hover:underline">Hội viên</a>
+                <button id="button_control"></button>
+            </nav>
+        </header>
+
+        <!-- Main -->
+        <main class="flex-grow px-4 md:px-20 py-12">
+            <h1 class="text-3xl font-bold text-center mb-6">
+                🔗 Chuỗi Cổng – Đa Qubit
+            </h1>
+            <p class="text-center italic text-orange-600 text-lg mb-8">
+                "Chọn trạng thái và dãy cổng lượng tử để mô phỏng"
+            </p>
+
+            <!-- Chọn trạng thái đầu vào -->
+            <div class="mb-6 max-w-md mx-auto">
+                <label for="inputState" class="block mb-2 font-semibold"
+                    >Trạng thái đầu vào:</label
+                >
+                <select
+                    id="inputState"
+                    class="w-full p-3 border border-gray-300 rounded shadow"
+                >
+                    <option value="00">|00⟩</option>
+                    <option value="01">|01⟩</option>
+                    <option value="10">|10⟩</option>
+                    <option value="11">|11⟩</option>
+                </select>
+            </div>
+
+            <!-- Chọn chuỗi cổng -->
+            <div class="mb-6 max-w-md mx-auto">
+                <label class="block mb-2 font-semibold"
+                    >Chọn chuỗi các cổng lượng tử:</label
+                >
+                <div class="flex flex-wrap gap-2">
+                    <button
+                        class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 gate-btn"
+                        data-gate="CNOT"
+                    >
+                        CNOT
+                    </button>
+                </div>
+                <p
+                    id="gateSequence"
+                    class="mt-4 text-blue-700 font-medium text-center"
+                >
+                    Trình tự: (chưa có)
+                </p>
+            </div>
+
+            <!-- Nút mô phỏng -->
+            <div class="flex justify-center mt-6">
+                <button
+                    onclick="simulateSequence()"
+                    class="px-6 py-2 bg-green-600 text-white font-semibold rounded hover:bg-green-700 transition"
+                >
+                    Mô phỏng chuỗi
+                </button>
+            </div>
+
+            <!-- Kết quả -->
+            <div class="mt-10 max-w-3xl mx-auto bg-white p-6 rounded-xl shadow">
+                <h2 class="text-xl font-bold mb-4 text-center">
+                    Kết quả mô phỏng
+                </h2>
+                <div id="resultArea" class="text-gray-800 text-center italic">
+                    ...
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer
+            class="bg-black text-white p-6 mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm"
+        >
+            <div>
+                <h3 class="font-bold mb-2">VỀ CHÚNG TÔI</h3>
+                <p>Liên hệ: quantumgates@example.com</p>
+                <p>Chính sách</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">CỔNG LƯỢNG TỬ</h3>
+                <p>Hadamard</p>
+                <p>Pauli-X</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">TÀI NGUYÊN</h3>
+                <p>Tài liệu học</p>
+                <p>Biểu đồ trạng thái</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">LIÊN HỆ</h3>
+                <p>Trường Đại học Kỹ thuật - Cần Thơ</p>
+                <p>SĐT: 0385 316 325</p>
+            </div>
+        </footer>
+
+        <script>
+            const gates = [];
+
+            // Lắng nghe click và cập nhật trình tự cổng
+            document.querySelectorAll(".gate-btn").forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const gate = btn.dataset.gate;
+                    gates.push(gate);
+                    document.getElementById("gateSequence").innerText =
+                        "Trình tự: " + gates.join(" → ");
+                });
+            });
+
+            // Mô phỏng chuỗi cổng 2 qubit (kế thừa từ JS)
+            function simulateSequence() {
+                const input = document.getElementById("inputState").value;
+                if (gates.length === 0) {
+                    alert("Vui lòng chọn ít nhất một cổng.");
+                    return;
+                }
+
+                const result = applyGateSequence2Qubit(input, gates); // <-- Kế thừa hàm JS
+                const labels = ["|00⟩", "|01⟩", "|10⟩", "|11⟩"];
+
+                // Hiển thị kết quả
+                let html = `<strong>Đầu vào:</strong> |${input}⟩<br>`;
+                html += `<strong>Chuỗi cổng:</strong> ${gates.join(
+                    " → "
+                )}<br><br>`;
+                html += `<strong>Trạng thái đầu ra:</strong><br>`;
+                html +=
+                    "|ψ⟩ = " +
+                    result
+                        .map((amp, i) => `(${formatComplex(amp)}) ${labels[i]}`)
+                        .join(" + ") +
+                    "<br><br>";
+
+                html += `<strong>Xác suất đo:</strong><br>`;
+                result.forEach((amp, i) => {
+                    const prob = math.pow(math.abs(amp), 2).toFixed(4);
+                    html += `P(${labels[i]}) = ${prob}<br>`;
+                });
+
+                document.getElementById("resultArea").innerHTML = html;
+            }
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const btn = document.getElementById("button_control");
+                if (!btn) return;
+
+                const token = localStorage.getItem("token");
+
+                const setLogout = () => {
+                    btn.textContent = "Đăng xuất";
+                    btn.onclick = () => {
+                        localStorage.removeItem("token");
+                        location.reload();
+                    };
+                };
+
+                const setLogin = () => {
+                    btn.textContent = "Đăng nhập";
+                    btn.onclick = () => {
+                        window.location.href = "/Pages/DangNhap.html";
+                    };
+                };
+
+                if (token) {
+                    setLogout();
+                } else {
+                    setLogin();
+                }
+            });
+        </script>
+    </body>
+</html>

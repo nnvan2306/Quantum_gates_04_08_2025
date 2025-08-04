@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý Sự kiện</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+  <link rel="stylesheet" href="../adminCSS/admin_news.css">
+
+  <!-- JS: Đúng thứ tự -->
+  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill-image-resize-module@3.0.0/image-resize.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quill-image-drop-module@1.0.3/image-drop.min.js"></script>
+</head>
+
+<body class="bg-white p-6">
+  <h2 class="text-2xl font-bold mb-4">📰 Thêm bài viết Sự kiện</h2>
+
+  <!-- Khối chia 2 bên -->
+  <div class="flex gap-6">
+    <!-- Bên trái: form nhập -->
+    <div class="space-y-4 w-1/2">
+      <input type="text" id="title" placeholder="Tiêu đề bài viết" class="w-full px-4 py-2 border rounded">
+      <input type="text" id="thumbnail" placeholder="Link ảnh đại diện" class="w-full px-4 py-2 border rounded">
+      <div id="editor" class="bg-white border rounded" style="height: 300px;"></div>
+      <button onclick="createNews()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Thêm bài viết</button>
+      <p id="result" class="text-green-600 font-medium"></p>
+    </div>
+
+    <!-- Bên phải: xem trước -->
+    <div class="w-1/2 border rounded p-4 bg-gray-50">
+      <h3 class="text-lg font-semibold mb-2"> Kết quả bài viết</h3>
+      <h4 id="preview-title" class="text-xl font-bold mb-2"></h4>
+      <img id="preview-thumb" class="mb-4 max-h-52 object-contain" alt="Ảnh đại diện">
+      <div id="preview" class="prose max-w-none bg-white p-3 border rounded"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+  <script src="../adminJS/admin_news.js"></script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký - Quantum Gates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .bg-register {
+            background: linear-gradient(135deg, #4776E6 0%, #8E54E9 100%);
+        }
+        .btn-primary {
+            background-color: #4F46E5;
+            transition: all 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #4338CA;
+            transform: translateY(-1px);
+        }
+        .form-input {
+            transition: all 0.2s;
+            border: 1px solid #E5E7EB;
+        }
+        .form-input:focus {
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <!-- Header -->
+            <div class="bg-register text-white p-6 text-center">
+                <h1 class="text-2xl font-bold">ĐĂNG KÝ TÀI KHOẢN</h1>
+                <p class="text-blue-100 mt-2">Tham gia cộng đồng Quantum Gates ngay hôm nay</p>
+            </div>
+
+            <!-- Alert Container -->
+            <div id="alert-container" class="px-6 pt-4"></div>
+
+            <!-- Registration Form -->
+            <form id="registerForm" class="p-6 space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">Họ *</label>
+                        <input type="text" id="firstName" name="firstName" required
+                               class="w-full px-4 py-2 form-input rounded-lg focus:ring-2 focus:ring-indigo-500"
+                               placeholder="Nhập họ của bạn">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="firstName-error"></div>
+                    </div>
+                    <div>
+                        <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Tên *</label>
+                        <input type="text" id="lastName" name="lastName" required
+                               class="w-full px-4 py-2 form-input rounded-lg focus:ring-2 focus:ring-indigo-500"
+                               placeholder="Nhập tên của bạn">
+                        <div class="text-red-500 text-xs mt-1 hidden" id="lastName-error"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+                    <input type="email" id="email" name="email" required
+                           class="w-full px-4 py-2 form-input rounded-lg focus:ring-2 focus:ring-indigo-500"
+                           placeholder="Nhập địa chỉ email">
+                    <div class="text-red-500 text-xs mt-1 hidden" id="email-error"></div>
+                </div>
+
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Tên đăng nhập *</label>
+                    <input type="text" id="username" name="username" required
+                           class="w-full px-4 py-2 form-input rounded-lg focus:ring-2 focus:ring-indigo-500"
+                           placeholder="Chọn tên đăng nhập">
+                    <div class="text-red-500 text-xs mt-1 hidden" id="username-error"></div>
+                </div>
+
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu *</label>
+                    <input type="password" id="password" name="password" required
+                           class="w-full px-4 py-2 form-input rounded-lg focus:ring-2 focus:ring-indigo-500"
+                           placeholder="Tạo mật khẩu mạnh">
+                    <div class="text-gray-500 text-xs mt-1">Ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số</div>
+                    <div class="text-red-500 text-xs mt-1 hidden" id="password-error"></div>
+                </div>
+
+                <div>
+                    <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Xác nhận mật khẩu *</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required
+                           class="w-full px-4 py-2 form-input rounded-lg focus:ring-2 focus:ring-indigo-500"
+                           placeholder="Nhập lại mật khẩu">
+                    <div class="text-red-500 text-xs mt-1 hidden" id="confirmPassword-error"></div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                        <input id="terms" name="terms" type="checkbox" required
+                               class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                    </div>
+                    <div class="ml-3 text-sm">
+                        <label for="terms" class="font-medium text-gray-700">Tôi đồng ý với <a href="#" class="text-indigo-600 hover:text-indigo-500">Điều khoản dịch vụ</a> và <a href="#" class="text-indigo-600 hover:text-indigo-500">Chính sách bảo mật</a></label>
+                    </div>
+                </div>
+
+                <button type="submit" id="registerBtn" class="w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-white font-medium bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                    <span id="btn-text">Đăng ký</span>
+                    <span id="btn-spinner" class="hidden ml-2">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </span>
+                </button>
+            </form>
+
+            <!-- Footer -->
+            <div class="px-6 py-4 bg-gray-50 text-center border-t border-gray-200">
+                <p class="text-sm text-gray-600">
+                    Đã có tài khoản? 
+                    <a href="DangNhap.html" class="font-medium text-indigo-600 hover:text-indigo-500">
+                        Đăng nhập ngay
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:3001/api';
+        const REGISTER_ENDPOINT = '/auth/register';
+
+        // DOM Elements
+        const registerForm = document.getElementById('registerForm');
+        const registerBtn = document.getElementById('registerBtn');
+        const btnText = document.getElementById('btn-text');
+        const btnSpinner = document.getElementById('btn-spinner');
+        const alertContainer = document.getElementById('alert-container');
+
+        // Show alert message
+        function showAlert(type, message) {
+            alertContainer.innerHTML = `
+                <div class="mb-4 p-4 rounded-lg ${type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                    ${message}
+                </div>
+            `;
+        }
+
+        // Validate password strength
+        function validatePassword(password) {
+            // At least 8 characters, 1 uppercase, 1 lowercase, 1 number
+            const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\W_]{8,}$/;
+            return strongRegex.test(password);
+        }
+
+        // Validate email format
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        // Handle form submission
+        async function handleRegister(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: document.getElementById('lastName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                username: document.getElementById('username').value.trim(),
+                password: document.getElementById('password').value,
+                confirmPassword: document.getElementById('confirmPassword').value,
+                terms: document.getElementById('terms').checked
+            };
+
+            // Reset previous errors
+            document.querySelectorAll('[id$="-error"]').forEach(el => {
+                el.classList.add('hidden');
+                el.textContent = '';
+            });
+            alertContainer.innerHTML = '';
+
+            // Validate form
+            let isValid = true;
+
+            // Validate first name
+            if (!formData.firstName) {
+                const errorEl = document.getElementById('firstName-error');
+                errorEl.textContent = 'Vui lòng nhập họ của bạn';
+                errorEl.classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Validate last name
+            if (!formData.lastName) {
+                const errorEl = document.getElementById('lastName-error');
+                errorEl.textContent = 'Vui lòng nhập tên của bạn';
+                errorEl.classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Validate email
+            if (!formData.email) {
+                const errorEl = document.getElementById('email-error');
+                errorEl.textContent = 'Vui lòng nhập địa chỉ email';
+                errorEl.classList.remove('hidden');
+                isValid = false;
+            } else if (!validateEmail(formData.email)) {
+                const errorEl = document.getElementById('email-error');
+                errorEl.textContent = 'Địa chỉ email không hợp lệ';
+                errorEl.classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Validate username
+            if (!formData.username) {
+                const errorEl = document.getElementById('username-error');
+                errorEl.textContent = 'Vui lòng chọn tên đăng nhập';
+                errorEl.classList.remove('hidden');
+                isValid = false;
+            } else if (formData.username.length < 4) {
+                const errorEl = document.getElementById('username-error');
+                errorEl.textContent = 'Tên đăng nhập phải có ít nhất 4 ký tự';
+                errorEl.classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Validate password
+            if (!formData.password) {
+                const errorEl = document.getElementById('password-error');
+                errorEl.textContent = 'Vui lòng nhập mật khẩu';
+                errorEl.classList.remove('hidden');
+                isValid = false;
+            } else if (!validatePassword(formData.password)) {
+                const errorEl = document.getElementById('password-error');
+                errorEl.textContent = 'Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số';
+                errorEl.classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Validate confirm password
+            if (formData.password !== formData.confirmPassword) {
+                const errorEl = document.getElementById('confirmPassword-error');
+                errorEl.textContent = 'Mật khẩu xác nhận không khớp';
+                errorEl.classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Validate terms
+            if (!formData.terms) {
+                showAlert('error', 'Bạn cần đồng ý với Điều khoản dịch vụ và Chính sách bảo mật');
+                return;
+            }
+
+            if (!isValid) return;
+
+            // Show loading state
+            btnText.textContent = 'Đang đăng ký...';
+            btnSpinner.classList.remove('hidden');
+            registerBtn.disabled = true;
+
+            try {
+                // Prepare data for API
+                const userData = {
+                    firstName: formData.firstName,
+                    lastName: formData.lastName,
+                    email: formData.email,
+                    username: formData.username,
+                    password: formData.password
+                };
+
+                const response = await fetch(API_BASE_URL + REGISTER_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Show success message
+                    showAlert('success', 'Đăng ký thành công! Bạn sẽ được chuyển đến trang đăng nhập...');
+                    
+                    // Redirect to login page after a short delay
+                    setTimeout(() => {
+                        window.location.href = 'DangNhap.html';
+                    }, 2000);
+                } else {
+                    throw new Error(data.message || 'Đăng ký thất bại');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                showAlert('error', error.message || 'Đã xảy ra lỗi khi đăng ký. Vui lòng thử lại sau.');
+            } finally {
+                // Reset button state
+                btnText.textContent = 'Đăng ký';
+                btnSpinner.classList.add('hidden');
+                registerBtn.disabled = false;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            registerForm.addEventListener('submit', handleRegister);
+        });
+    </script>
+</body>
+</html>

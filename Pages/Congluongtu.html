@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <title>CỔNG LƯỢNG TỬ</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="../css/styles.css" />
+
+        <style>
+            #button_control {
+                background: #e53935;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                font-weight: 600;
+                font-size: 14px;
+                border-radius: 12px;
+                cursor: pointer;
+                box-shadow: 0 6px 16px -4px rgba(229, 57, 53, 0.6);
+                transition: transform 0.1s, filter 0.1s;
+                display: inline-block;
+                line-height: 1;
+            }
+            #button_control:hover {
+                filter: brightness(1.05);
+                transform: translateY(-1px);
+            }
+            #button_control:active {
+                transform: translateY(1px);
+                box-shadow: 0 4px 12px -2px rgba(229, 57, 53, 0.6);
+            }
+        </style>
+    </head>
+    <body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+        <!-- Header -->
+        <header
+            class="bg-black text-white p-4 flex justify-between items-center"
+        >
+            <div class="text-xl font-bold">QUANTUM GATES</div>
+            <nav class="space-x-6 text-sm">
+                <a href="index.html" class="hover:underline">Trang chủ</a>
+                <a href="Congluongtu.html" class="hover:underline"
+                    >Cổng lượng tử</a
+                >
+                <a href="BaiViet.html" class="hover:underline">Bài viết</a>
+                <a href="HoatDong.html" class="hover:underline">Hoạt động</a>
+                <a href="Sukien.html" class="hover:underline">Sự kiện</a>
+                <a href="LienHe.html" class="hover:underline">Liên hệ</a>
+                <a href="HoiVien.html" class="hover:underline">Hội viên</a>
+                <button id="button_control"></button>
+            </nav>
+        </header>
+
+        <main class="flex-grow px-4 md:px-20 py-12">
+            <h1 class="text-3xl font-bold text-center text-black mb-10">
+                CỔNG LƯỢNG TỬ
+            </h1>
+
+            <!-- Danh mục chọn cổng -->
+            <div class="flex flex-wrap justify-center items-center gap-8 mb-10">
+                <!-- Mô tả cổng -->
+                <div class="flex flex-col">
+                    <label for="moTa" class="font-medium mb-1"
+                        >Mô tả cổng:</label
+                    >
+                    <select
+                        id="moTa"
+                        class="p-3 w-56 border border-gray-300 rounded shadow"
+                    >
+                        <option>-- Chọn cổng lượng tử --</option>
+                        <option>Cổng Hadamard</option>
+                        <option>Cổng Pauli-X</option>
+                        <option>Cổng Pauli-Y</option>
+                        <option>Cổng Pauli-Z</option>
+                        <option>Cổng S</option>
+                        <option>Cổng T</option>
+                        <option>Cổng CNOT</option>
+                    </select>
+                </div>
+
+                <!-- Tác động cổng -->
+                <div class="flex flex-col">
+                    <label for="tacDong" class="font-medium mb-1"
+                        >Tác động cổng:</label
+                    >
+                    <select
+                        id="tacDong"
+                        class="p-3 w-56 border border-gray-300 rounded shadow"
+                    >
+                        <option>-- Chọn số lượng qubit --</option>
+                        <option>Đơn qubit</option>
+                        <option>Đa qubit</option>
+                    </select>
+                </div>
+
+                <!-- Chuỗi cổng -->
+                <div class="flex flex-col">
+                    <label for="chuoi" class="font-medium mb-1"
+                        >Chuỗi cổng:</label
+                    >
+                    <select
+                        id="chuoi"
+                        class="p-3 w-56 border border-gray-300 rounded shadow"
+                    >
+                        <option>-- Chọn số lượng qubit --</option>
+                        <option>Đơn qubit</option>
+                        <option>Đa qubit</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Nút xác nhận -->
+            <div class="flex justify-center">
+                <button
+                    onclick="xacNhan()"
+                    class="px-6 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 transition"
+                >
+                    Xác nhận
+                </button>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer
+            class="bg-black text-white p-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm"
+        >
+            <div>
+                <h3 class="font-bold mb-2">VỀ CHÚNG TÔI</h3>
+                <p>Liên hệ: quantumgates@example.com</p>
+                <p>Chính sách</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">CỔNG LƯỢNG TỬ</h3>
+                <p>Hadamard</p>
+                <p>Pauli-X</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">TÀI NGUYÊN</h3>
+                <p>Tài liệu học</p>
+                <p>Biểu đồ trạng thái</p>
+            </div>
+            <div>
+                <h3 class="font-bold mb-2">LIÊN HỆ</h3>
+                <p>Trường Đại học Kỹ thuật - Cần Thơ</p>
+                <p>SĐT: 0385 316 325</p>
+            </div>
+        </footer>
+
+        <!-- Điều hướng -->
+        <script>
+            // Bản đồ ánh xạ từ tên cổng → file HTML tương ứng
+            const gateMap = {
+                "Cổng Hadamard": "hadamard.html",
+                "Cổng Pauli-X": "pauli-x.html",
+                "Cổng Pauli-Y": "pauli-y.html",
+                "Cổng Pauli-Z": "pauli-z.html",
+                "Cổng S": "s.html",
+                "Cổng T": "t.html",
+                "Cổng CNOT": "cnot.html",
+            };
+
+            // Khi trang tải xong, gán sự kiện cho 3 dropdown
+            window.onload = function () {
+                const selects = ["moTa", "tacDong", "chuoi"];
+
+                // Gán sự kiện change cho mỗi select để khóa 2 ô còn lại
+                selects.forEach((id) => {
+                    document
+                        .getElementById(id)
+                        .addEventListener("change", () => {
+                            selects.forEach((otherId) => {
+                                if (otherId !== id) {
+                                    document.getElementById(
+                                        otherId
+                                    ).disabled = true;
+                                }
+                            });
+                        });
+                });
+            };
+
+            // Hàm xử lý điều hướng khi ấn nút "Xác nhận"
+            function xacNhan() {
+                const moTa = document.getElementById("moTa")?.value?.trim();
+                const tacDong = document
+                    .getElementById("tacDong")
+                    ?.value?.trim();
+                const chuoi = document.getElementById("chuoi")?.value?.trim();
+
+                // Nếu đã chọn cổng cụ thể trong phần "Mô tả"
+                if (moTa && gateMap[moTa]) {
+                    window.location.href = gateMap[moTa];
+                    return;
+                }
+
+                // Nếu chọn tác động qubit
+                if (tacDong === "Đơn qubit") {
+                    window.location.href = "TacdongQubitDon.html";
+                    return;
+                } else if (tacDong === "Đa qubit") {
+                    window.location.href = "TacdongQubitDa.html";
+                    return;
+                }
+
+                // Nếu chọn chuỗi cổng
+                if (chuoi === "Đơn qubit") {
+                    window.location.href = "ChuoiQubitDon.html";
+                    return;
+                } else if (chuoi === "Đa qubit") {
+                    window.location.href = "ChuoiQubitDa.html";
+                    return;
+                }
+
+                // Nếu chưa chọn gì cả
+                alert("Vui lòng chọn danh mục phù hợp để chuyển trang.");
+            }
+        </script>
+        <script src="js/Main.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const btn = document.getElementById("button_control");
+                if (!btn) return;
+
+                const token = localStorage.getItem("token");
+
+                const setLogout = () => {
+                    btn.textContent = "Đăng xuất";
+                    btn.onclick = () => {
+                        localStorage.removeItem("token");
+                        location.reload();
+                    };
+                };
+
+                const setLogin = () => {
+                    btn.textContent = "Đăng nhập";
+                    btn.onclick = () => {
+                        window.location.href = "/Pages/DangNhap.html";
+                    };
+                };
+
+                if (token) {
+                    setLogout();
+                } else {
+                    setLogin();
+                }
+            });
+        </script>
+    </body>
+</html>
