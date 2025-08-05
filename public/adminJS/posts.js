@@ -126,80 +126,74 @@ function displayPosts(posts) {
                 </thead>
                 <tbody>
                     ${posts
-                        .map(
-                            (post) => `
+            .map(
+                (post) => `
                         <tr>
                             <td>${post.id}</td>
                             <td>
                                 <span class="badge bg-${getTypeBadgeColor(
-                                    post.post_type || "post"
-                                )}">
+                    post.post_type || "post"
+                )}">
                                     <i class="${getTypeIcon(
-                                        post.post_type || "post"
-                                    )}"></i>
+                    post.post_type || "post"
+                )}"></i>
                                     ${getTypeText(post.post_type || "post")}
                                 </span>
                             </td>
                             <td>
                                 <div class="d-flex flex-column">
                                     <strong>${post.title}</strong>
-                                    ${
-                                        post.excerpt
-                                            ? `<small class="text-muted">${post.excerpt.substring(
-                                                  0,
-                                                  100
-                                              )}...</small>`
-                                            : ""
-                                    }
+                                    ${post.excerpt
+                        ? `<small class="text-muted">${post.excerpt.substring(
+                            0,
+                            100
+                        )}...</small>`
+                        : ""
+                    }
                                 </div>
                             </td>
                             <td>${post.author_name || post.author_username}</td>
                             <td>
                                 <span class="badge bg-info">${getCategoryText(
-                                    post.category
-                                )}</span>
+                        post.category
+                    )}</span>
                             </td>
                             <td>
                                 <span class="badge bg-${getStatusBadgeColor(
-                                    post.status
-                                )}">
+                        post.status
+                    )}">
                                     ${getStatusText(post.status)}
                                 </span>
                             </td>
                             <td>
-                                <i class="fas fa-eye text-info"></i> ${
-                                    post.view_count || 0
-                                }
+                                <i class="fas fa-eye text-info"></i> ${post.view_count || 0
+                    }
                             </td>
                             <td>
-                                <i class="fas fa-heart text-danger"></i> ${
-                                    post.like_count || 0
-                                }
+                                <i class="fas fa-heart text-danger"></i> ${post.like_count || 0
+                    }
                             </td>
                             <td>${formatDate(post.created_at)}</td>
                             <td>
                                 <div class="btn-group" role="group">
-                                    <button class="btn btn-sm btn-outline-primary" onclick="editPost(${
-                                        post.id
-                                    }, '${post.type || "post"}')" title="Sửa">
+                                    <button class="btn btn-sm btn-outline-primary" onclick="editPost(${post.id
+                    }, '${post.type || "post"}')" title="Sửa">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-outline-info" onclick="viewPost(${
-                                        post.id
-                                    })" title="Xem">
+                                    <button class="btn btn-sm btn-outline-info" onclick="viewPost(${post.id
+                    })" title="Xem">
                                         <i class="fas fa-eye"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-outline-danger" onclick="deletePost(${
-                                        post.id
-                                    }, '${post.title}')" title="Xóa">
+                                    <button class="btn btn-sm btn-outline-danger" onclick="deletePost(${post.id
+                    }, '${post.title}')" title="Xóa">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
                             </td>
                         </tr>
                     `
-                        )
-                        .join("")}
+            )
+            .join("")}
                 </tbody>
             </table>
         </div>
@@ -231,9 +225,8 @@ function displayPagination(pagination) {
     // Previous button
     paginationHTML += `
         <li class="page-item ${pagination.page === 1 ? "disabled" : ""}">
-            <a class="page-link" href="#" onclick="loadPosts(${
-                pagination.page - 1
-            })">Trước</a>
+            <a class="page-link" href="#" onclick="loadPosts(${pagination.page - 1
+        })">Trước</a>
         </li>
     `;
 
@@ -251,12 +244,10 @@ function displayPagination(pagination) {
 
     // Next button
     paginationHTML += `
-        <li class="page-item ${
-            pagination.page === pagination.totalPages ? "disabled" : ""
+        <li class="page-item ${pagination.page === pagination.totalPages ? "disabled" : ""
         }">
-            <a class="page-link" href="#" onclick="loadPosts(${
-                pagination.page + 1
-            })">Sau</a>
+            <a class="page-link" href="#" onclick="loadPosts(${pagination.page + 1
+        })">Sau</a>
         </li>
     `;
 
@@ -769,7 +760,7 @@ async function deletePost(postId, title) {
 
 function viewPost(postId) {
     // Open post in new tab (would need a public post view page)
-    window.open(`../Preview/detail.html?id=${postId}`, "_blank");
+    window.open(`/Pages/detail.html?id=${postId}`, "_blank");
 }
 
 // Utility functions

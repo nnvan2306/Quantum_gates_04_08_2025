@@ -198,6 +198,100 @@ class AdminController {
         }
     }
 
+    static async createUser(req, res) {
+        try {
+            const adminUser = req.user;
+
+            // Check if user is admin
+            if (adminUser.role !== 'admin') {
+                return res.status(403).json({
+                    success: false,
+                    message: 'Access denied. Admin role required.'
+                });
+            }
+
+            // Check validation errors
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Validation failed',
+                    errors: errors.array()
+                });
+            }
+
+            const { username, email, full_name, role, status, password } = req.body;
+
+            // Check if user already exists
+            const existingUser = await User.findByUsername(username);
+            if (existingUser.success && existingUser.data) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Username already exists'
+                });
+            }
+
+            // Hash password
+            const passHash = await User.hashPassword(password);
+
+            // Create user
+            const result = await User.create({
+                username,
+                email,
+                full_name,
+                role,
+                status,
+                password: passHash
+            });
+
+            if (!result.success) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Failed to create user',
+                    error: result.error
+                });
+            }
+
+            // Log admin action
+            await AdminController.logAdminAction(
+                adminUser.id,
+                'user_create',
+                'user',
+                result.data.id,
+                {},
+                { username, email, full_name, role, status },
+                `Created user ${username}`,
+                req
+            );
+
+            // Insert into SQL database
+            await AdminController.createUserSQL(
+                username,
+                email,
+                passHash,
+                full_name,
+                role,
+                status
+            );
+
+            res.json({
+                success: true,
+                message: 'User created successfully',
+                data: {
+                    user: result.data.toJSON()
+                }
+            });
+
+        } catch (error) {
+            console.error('Create user error:', error);
+            res.status(500).json({
+                success: false,
+                message: 'Internal server error',
+                error: error.message
+            });
+        }
+    }
+
     // Delete user (admin only)
     static async deleteUser(req, res) {
         try {
@@ -341,6 +435,27 @@ class AdminController {
             // Don't throw error as this is not critical
         }
     }
+
+    static async createUserSQL(username, email, password_hash, full_name, role, status) {
+        try {
+            const query = `INSERT INTO users (username, email, password_hash, full_name, role, status, email_verified) VALUES ( ?,?,?,?,?,?,TRUE );`;
+
+            const params = [
+                username,
+                email,
+                password_hash,
+                full_name,
+                role,
+                status
+            ];
+
+            await insertRecord(query, params);
+        } catch (error) {
+            console.error('Failed to log admin action:', error);
+            // Don't throw error as this is not critical
+        }
+    }
+
 }
 
 module.exports = AdminController;

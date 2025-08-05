@@ -145,9 +145,8 @@ class BeautifulBlogDetail {
             post.author_name
         );
         this.elements.authorName.textContent = post.author_name || "Anonymous";
-        this.elements.authorUsername.textContent = `@${
-            post.author_username || "unknown"
-        }`;
+        this.elements.authorUsername.textContent = `@${post.author_username || "unknown"
+            }`;
 
         // Dates
         if (post.published_at) {
@@ -334,7 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
     likeBtn.addEventListener("click", () => {
         console.log("runnnnn");
         const postId = new URLSearchParams(window.location.search).get("id");
-        const token = localStorage.getItem("quantum_gates_token"); // bạn cần đảm bảo token đã được lưu
+        const token = localStorage.getItem("token"); // bạn cần đảm bảo token đã được lưu
         fetch(`http://localhost:3001/api/posts/like/${postId}`, {
             method: "POST",
             headers: {

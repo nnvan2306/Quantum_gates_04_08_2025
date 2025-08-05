@@ -15,6 +15,7 @@ router.get('/dashboard/stats', AdminController.getDashboardStats);
 router.get('/users', queryValidation.pagination, AdminController.getAllUsers);
 router.get('/users/:userId', paramValidation.userId, AdminController.getUserById);
 router.put('/users/:userId', paramValidation.userId, userValidation.adminUpdate, AdminController.updateUser);
+router.post('/users/create/new', AdminController.createUser);
 router.delete('/users/:userId', paramValidation.userId, AdminController.deleteUser);
 
 module.exports = router;

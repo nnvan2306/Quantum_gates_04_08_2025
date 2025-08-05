@@ -3,18 +3,18 @@ let currentPage = 1;
 let currentFilters = {};
 let isEditing = false;
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Check authentication and admin role
     if (!Auth.requireAdmin()) {
         return;
     }
-    
+
     // Initialize page
     initializeUsersPage();
-    
+
     // Setup event listeners
     setupEventListeners();
-    
+
     // Load users data
     loadUsers();
 });
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeUsersPage() {
     // Display user info
     displayUserInfo();
-    
+
     // Setup sidebar toggle
     setupSidebarToggle();
 }
@@ -33,32 +33,32 @@ function setupEventListeners() {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', handleLogout);
     }
-    
+
     // Search functionality
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
-    
+
     if (searchInput) {
-        searchInput.addEventListener('keypress', function(e) {
+        searchInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 performSearch();
             }
         });
     }
-    
+
     if (searchBtn) {
         searchBtn.addEventListener('click', performSearch);
     }
-    
+
     // Filter change events
     const roleFilter = document.getElementById('roleFilter');
     const statusFilter = document.getElementById('statusFilter');
-    
+
     if (roleFilter) {
         roleFilter.addEventListener('change', applyFilters);
     }
-    
+
     if (statusFilter) {
         statusFilter.addEventListener('change', applyFilters);
     }
@@ -69,11 +69,11 @@ function displayUserInfo() {
     if (user) {
         const userDisplayName = document.getElementById('userDisplayName');
         const userAvatar = document.getElementById('userAvatar');
-        
+
         if (userDisplayName) {
             userDisplayName.textContent = user.full_name || user.username;
         }
-        
+
         if (userAvatar && user.avatar_url) {
             userAvatar.src = user.avatar_url;
         }
@@ -83,18 +83,18 @@ function displayUserInfo() {
 async function loadUsers(page = 1) {
     try {
         currentPage = page;
-        
+
         // Build query parameters
         const params = new URLSearchParams({
             page: page,
             limit: 10,
             ...currentFilters
         });
-        
+
         const result = await Auth.apiRequest(`${API_ENDPOINTS.ADMIN.USERS}?${params}`);
         displayUsers(result.data.users);
         displayPagination(result.data.pagination);
-        
+
     } catch (error) {
         console.error('Error loading users:', error);
         displayUsersError(error.message);
@@ -103,7 +103,7 @@ async function loadUsers(page = 1) {
 
 function displayUsers(users) {
     const container = document.getElementById('usersTableContainer');
-    
+
     if (users.length === 0) {
         container.innerHTML = `
             <div class="text-center text-muted py-4">
@@ -113,7 +113,7 @@ function displayUsers(users) {
         `;
         return;
     }
-    
+
     const table = `
         <div class="table-responsive">
             <table class="table table-bordered">
@@ -174,7 +174,7 @@ function displayUsers(users) {
             </table>
         </div>
     `;
-    
+
     container.innerHTML = table;
 }
 
@@ -190,25 +190,25 @@ function displayUsersError(message) {
 
 function displayPagination(pagination) {
     const paginationContainer = document.getElementById('pagination');
-    
+
     if (pagination.totalPages <= 1) {
         paginationContainer.innerHTML = '';
         return;
     }
-    
+
     let paginationHTML = '';
-    
+
     // Previous button
     paginationHTML += `
         <li class="page-item ${pagination.page === 1 ? 'disabled' : ''}">
             <a class="page-link" href="#" onclick="loadUsers(${pagination.page - 1})">Trước</a>
         </li>
     `;
-    
+
     // Page numbers
     const startPage = Math.max(1, pagination.page - 2);
     const endPage = Math.min(pagination.totalPages, pagination.page + 2);
-    
+
     for (let i = startPage; i <= endPage; i++) {
         paginationHTML += `
             <li class="page-item ${i === pagination.page ? 'active' : ''}">
@@ -216,79 +216,79 @@ function displayPagination(pagination) {
             </li>
         `;
     }
-    
+
     // Next button
     paginationHTML += `
         <li class="page-item ${pagination.page === pagination.totalPages ? 'disabled' : ''}">
             <a class="page-link" href="#" onclick="loadUsers(${pagination.page + 1})">Sau</a>
         </li>
     `;
-    
+
     paginationContainer.innerHTML = paginationHTML;
 }
 
 function performSearch() {
     const searchInput = document.getElementById('searchInput');
     const searchTerm = searchInput.value.trim();
-    
+
     if (searchTerm) {
         currentFilters.search = searchTerm;
     } else {
         delete currentFilters.search;
     }
-    
+
     loadUsers(1);
 }
 
 function applyFilters() {
     const roleFilter = document.getElementById('roleFilter');
     const statusFilter = document.getElementById('statusFilter');
-    
+
     currentFilters = {};
-    
+
     if (roleFilter.value) {
         currentFilters.role = roleFilter.value;
     }
-    
+
     if (statusFilter.value) {
         currentFilters.status = statusFilter.value;
     }
-    
+
     // Keep search term if exists
     const searchInput = document.getElementById('searchInput');
     if (searchInput.value.trim()) {
         currentFilters.search = searchInput.value.trim();
     }
-    
+
     loadUsers(1);
 }
 
 function clearFilters() {
     currentFilters = {};
-    
+
     // Clear form inputs
     document.getElementById('roleFilter').value = '';
     document.getElementById('statusFilter').value = '';
     document.getElementById('searchInput').value = '';
-    
+
     loadUsers(1);
 }
 
 function openCreateUserModal() {
     isEditing = false;
-    
+
     // Reset form
     const form = document.getElementById('userForm');
     form.reset();
-    
+
     // Update modal title
     document.getElementById('userModalTitle').textContent = 'Thêm người dùng';
-    
+
     // Show password field as required
     const passwordField = document.getElementById('password');
     passwordField.required = true;
     passwordField.parentElement.querySelector('small').style.display = 'none';
-    
+
     // Clear user ID
     document.getElementById('userId').value = '';
 }
@@ -296,11 +296,11 @@ function openCreateUserModal() {
 async function editUser(userId) {
     try {
         isEditing = true;
-        
+
         // Load user data
         const result = await Auth.apiRequest(API_ENDPOINTS.ADMIN.USER(userId));
         const user = result.data.user;
-        
+
         // Populate form
         document.getElementById('userId').value = user.id;
         document.getElementById('username').value = user.username;
@@ -308,20 +308,20 @@ async function editUser(userId) {
         document.getElementById('full_name').value = user.full_name || '';
         document.getElementById('role').value = user.role;
         document.getElementById('status').value = user.status;
-        
+
         // Update modal title
         document.getElementById('userModalTitle').textContent = 'Sửa người dùng';
-        
+
         // Make password optional for editing
         const passwordField = document.getElementById('password');
         passwordField.required = false;
         passwordField.value = '';
         passwordField.parentElement.querySelector('small').style.display = 'block';
-        
+
         // Show modal
         const modal = new bootstrap.Modal(document.getElementById('userModal'));
         modal.show();
-        
+
     } catch (error) {
         console.error('Error loading user:', error);
         showAlert('danger', 'Không thể tải thông tin người dùng: ' + error.message);
@@ -332,22 +332,22 @@ async function saveUser() {
     try {
         const form = document.getElementById('userForm');
         const formData = new FormData(form);
-        
+
         // Validate form
         if (!form.checkValidity()) {
             form.classList.add('was-validated');
             return;
         }
-        
+
         const saveBtn = document.querySelector('#userModal .btn-primary');
         const btnText = saveBtn.querySelector('.btn-text');
         const spinner = saveBtn.querySelector('.spinner-border');
-        
+
         // Show loading state
         saveBtn.disabled = true;
         btnText.textContent = isEditing ? 'Đang cập nhật...' : 'Đang tạo...';
         spinner.classList.remove('d-none');
-        
+
         // Prepare data
         const userData = {
             username: formData.get('username'),
@@ -356,15 +356,15 @@ async function saveUser() {
             role: formData.get('role'),
             status: formData.get('status')
         };
-        
+
         // Add password if provided
         const password = formData.get('password');
         if (password) {
             userData.password = password;
         }
-        
+
         let result;
-        
+
         if (isEditing) {
             // Update user
             const userId = formData.get('userId');
@@ -374,20 +374,24 @@ async function saveUser() {
             });
         } else {
             // Create user (would need a create endpoint)
-            showAlert('warning', 'Chức năng tạo người dùng mới chưa được implement trong API.');
-            return;
+            result = await Auth.apiRequest(API_ENDPOINTS.ADMIN.CREATE_USER, {
+                method: 'POST',
+                body: JSON.stringify({
+                    ...userData,
+                })
+            });
         }
-        
+
         // Success
         showAlert('success', isEditing ? 'Cập nhật người dùng thành công!' : 'Tạo người dùng thành công!');
-        
+
         // Close modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('userModal'));
         modal.hide();
-        
+
         // Reload users
         loadUsers(currentPage);
-        
+
     } catch (error) {
         console.error('Error saving user:', error);
         showAlert('danger', 'Lỗi khi lưu người dùng: ' + error.message);
@@ -396,7 +400,7 @@ async function saveUser() {
         const saveBtn = document.querySelector('#userModal .btn-primary');
         const btnText = saveBtn.querySelector('.btn-text');
         const spinner = saveBtn.querySelector('.spinner-border');
-        
+
         saveBtn.disabled = false;
         btnText.textContent = 'Lưu';
         spinner.classList.add('d-none');
@@ -407,15 +411,15 @@ async function deleteUser(userId, username) {
     if (!confirm(`Bạn có chắc chắn muốn xóa người dùng "${username}"?`)) {
         return;
     }
-    
+
     try {
         await Auth.apiRequest(API_ENDPOINTS.ADMIN.DELETE_USER(userId), {
             method: 'DELETE'
         });
-        
+
         showAlert('success', 'Xóa người dùng thành công!');
         loadUsers(currentPage);
-        
+
     } catch (error) {
         console.error('Error deleting user:', error);
         showAlert('danger', 'Lỗi khi xóa người dùng: ' + error.message);
@@ -472,7 +476,7 @@ function getStatusText(status) {
 // Event handlers
 async function handleLogout(e) {
     e.preventDefault();
-    
+
     if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
         try {
             await Auth.logout();
@@ -494,11 +498,11 @@ function toggleSidebar() {
 function setupSidebarToggle() {
     const sidebarToggle = document.getElementById('sidebarToggle');
     const sidebarToggleTop = document.getElementById('sidebarToggleTop');
-    
+
     if (sidebarToggle) {
         sidebarToggle.addEventListener('click', toggleSidebar);
     }
-    
+
     if (sidebarToggleTop) {
         sidebarToggleTop.addEventListener('click', toggleSidebar);
     }
@@ -513,10 +517,10 @@ function showAlert(type, message) {
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
-    
+
     // Add to page
     document.body.appendChild(alert);
-    
+
     // Auto remove after 5 seconds
     setTimeout(() => {
         if (alert.parentNode) {
