@@ -13,7 +13,7 @@ const API_ENDPOINTS = {
         LOGOUT: "/auth/logout",
         VERIFY_TOKEN: "/auth/verify-token",
         INTERACTIONS: "/auth/interactions",
-        UPLOAD_AVATAR: "/auth/upload-avatar",
+        UPLOAD_AVATAR: "/upload/image",
     },
 
     // Posts endpoints
@@ -50,7 +50,7 @@ const API_ENDPOINTS = {
         USER: (userId) => `/admin/users/${userId}`,
         UPDATE_USER: (userId) => `/admin/users/${userId}`,
         DELETE_USER: (userId) => `/admin/users/${userId}`,
-        CREATE_USER: "/admin/users/create/new"
+        CREATE_USER: "/admin/users/create/new",
     },
 };
 

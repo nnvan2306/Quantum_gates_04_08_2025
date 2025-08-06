@@ -5,6 +5,8 @@ const rateLimit = require("express-rate-limit");
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./config/swagger");
 require("dotenv").config();
+const path = require("path");
+const uploadRouter = require("./Routes/upload");
 
 const { testConnection } = require("./db");
 
@@ -26,7 +28,12 @@ app.use(
         origin:
             process.env.NODE_ENV === "production"
                 ? ["https://yourdomain.com"] // Replace with your frontend domain
-                : ["http://127.0.0.1:5501", "http://localhost:5501", "http://127.0.0.1:5500", "http://localhost:5500"],
+                : [
+                      "http://127.0.0.1:5501",
+                      "http://localhost:5501",
+                      "http://127.0.0.1:5500",
+                      "http://localhost:5500",
+                  ],
         credentials: true,
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"],
@@ -46,6 +53,12 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+
+// Public thư mục uploads
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Sử dụng router upload
+app.use("/api/upload", uploadRouter);
 
 // Body parsing middleware
 app.use(express.json({ limit: "10mb" }));
