@@ -67,7 +67,7 @@ function displayUserInfo() {
         }
 
         if (userAvatar && user.avatar_url) {
-            userAvatar.src = user.avatar_url;
+            userAvatar.src = window.origin + "/uploads/" + user.avatar_url;
         }
     }
 }

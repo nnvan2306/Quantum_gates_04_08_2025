@@ -2,23 +2,23 @@
 let currentPage = 1;
 let currentFilters = {};
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Check authentication and admin role
     if (!Auth.requireAdmin()) {
         return;
     }
-    
+
     // Initialize page
     initializeHistoryPage();
-    
+
     // Setup event listeners
     setupEventListeners();
-    
+
     // Load data
     loadHistory();
     loadUsers();
     loadStats();
-    
+
     // Check for user filter from URL
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('user');
@@ -31,14 +31,14 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeHistoryPage() {
     // Display user info
     displayUserInfo();
-    
+
     // Setup sidebar toggle
     setupSidebarToggle();
-    
+
     // Set default date range (last 30 days)
     const today = new Date();
     const thirtyDaysAgo = new Date(today.getTime() - (30 * 24 * 60 * 60 * 1000));
-    
+
     document.getElementById('dateToFilter').value = today.toISOString().split('T')[0];
     document.getElementById('dateFromFilter').value = thirtyDaysAgo.toISOString().split('T')[0];
 }
@@ -49,20 +49,20 @@ function setupEventListeners() {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', handleLogout);
     }
-    
+
     // Search functionality
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
-    
+
     if (searchInput) {
-        searchInput.addEventListener('keypress', function(e) {
+        searchInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 performSearch();
             }
         });
     }
-    
+
     if (searchBtn) {
         searchBtn.addEventListener('click', performSearch);
     }
@@ -73,13 +73,13 @@ function displayUserInfo() {
     if (user) {
         const userDisplayName = document.getElementById('userDisplayName');
         const userAvatar = document.getElementById('userAvatar');
-        
+
         if (userDisplayName) {
             userDisplayName.textContent = user.full_name || user.username;
         }
-        
+
         if (userAvatar && user.avatar_url) {
-            userAvatar.src = user.avatar_url;
+            userAvatar.src = window.origin + "/uploads/" + user.avatar_url;
         }
     }
 }
@@ -87,18 +87,18 @@ function displayUserInfo() {
 async function loadHistory(page = 1) {
     try {
         currentPage = page;
-        
+
         // Build query parameters
         const params = new URLSearchParams({
             page: page,
             limit: 20,
             ...currentFilters
         });
-        
+
         const result = await Auth.apiRequest(`${API_ENDPOINTS.HISTORY.ALL}?${params}`);
         displayHistory(result.data.interactions);
         displayPagination(result.data.pagination);
-        
+
     } catch (error) {
         console.error('Error loading history:', error);
         displayHistoryError(error.message);
@@ -107,7 +107,7 @@ async function loadHistory(page = 1) {
 
 function displayHistory(interactions) {
     const container = document.getElementById('historyTableContainer');
-    
+
     if (interactions.length === 0) {
         container.innerHTML = `
             <div class="text-center text-muted py-4">
@@ -117,7 +117,7 @@ function displayHistory(interactions) {
         `;
         return;
     }
-    
+
     const table = `
         <div class="table-responsive">
             <table class="table table-bordered">
@@ -178,7 +178,7 @@ function displayHistory(interactions) {
             </table>
         </div>
     `;
-    
+
     container.innerHTML = table;
 }
 
@@ -194,25 +194,25 @@ function displayHistoryError(message) {
 
 function displayPagination(pagination) {
     const paginationContainer = document.getElementById('pagination');
-    
+
     if (pagination.totalPages <= 1) {
         paginationContainer.innerHTML = '';
         return;
     }
-    
+
     let paginationHTML = '';
-    
+
     // Previous button
     paginationHTML += `
         <li class="page-item ${pagination.page === 1 ? 'disabled' : ''}">
             <a class="page-link" href="#" onclick="loadHistory(${pagination.page - 1})">Trước</a>
         </li>
     `;
-    
+
     // Page numbers
     const startPage = Math.max(1, pagination.page - 2);
     const endPage = Math.min(pagination.totalPages, pagination.page + 2);
-    
+
     for (let i = startPage; i <= endPage; i++) {
         paginationHTML += `
             <li class="page-item ${i === pagination.page ? 'active' : ''}">
@@ -220,14 +220,14 @@ function displayPagination(pagination) {
             </li>
         `;
     }
-    
+
     // Next button
     paginationHTML += `
         <li class="page-item ${pagination.page === pagination.totalPages ? 'disabled' : ''}">
             <a class="page-link" href="#" onclick="loadHistory(${pagination.page + 1})">Sau</a>
         </li>
     `;
-    
+
     paginationContainer.innerHTML = paginationHTML;
 }
 
@@ -235,14 +235,14 @@ async function loadUsers() {
     try {
         const result = await Auth.apiRequest(`${API_ENDPOINTS.ADMIN.USERS}?limit=100`);
         const userFilter = document.getElementById('userFilter');
-        
+
         result.data.users.forEach(user => {
             const option = document.createElement('option');
             option.value = user.id;
             option.textContent = `${user.full_name || user.username} (${user.email})`;
             userFilter.appendChild(option);
         });
-        
+
     } catch (error) {
         console.error('Error loading users:', error);
     }
@@ -252,7 +252,7 @@ async function loadStats() {
     try {
         const result = await Auth.apiRequest(API_ENDPOINTS.HISTORY.STATS);
         displayStats(result.data);
-        
+
     } catch (error) {
         console.error('Error loading stats:', error);
     }
@@ -260,7 +260,7 @@ async function loadStats() {
 
 function displayStats(stats) {
     const statsCards = document.getElementById('statsCards');
-    
+
     const cards = [
         {
             title: 'Tổng tương tác',
@@ -287,7 +287,7 @@ function displayStats(stats) {
             color: 'warning'
         }
     ];
-    
+
     statsCards.innerHTML = cards.map(card => `
         <div class="col-xl-3 col-md-6 mb-4">
             <div class="card stats-card ${card.color} shadow h-100 py-2">
@@ -310,13 +310,13 @@ function displayStats(stats) {
 function performSearch() {
     const searchInput = document.getElementById('searchInput');
     const searchTerm = searchInput.value.trim();
-    
+
     if (searchTerm) {
         currentFilters.search = searchTerm;
     } else {
         delete currentFilters.search;
     }
-    
+
     loadHistory(1);
 }
 
@@ -325,45 +325,45 @@ function applyFilters() {
     const interactionTypeFilter = document.getElementById('interactionTypeFilter');
     const dateFromFilter = document.getElementById('dateFromFilter');
     const dateToFilter = document.getElementById('dateToFilter');
-    
+
     currentFilters = {};
-    
+
     if (userFilter.value) {
         currentFilters.user_id = userFilter.value;
     }
-    
+
     if (interactionTypeFilter.value) {
         currentFilters.interaction_type = interactionTypeFilter.value;
     }
-    
+
     if (dateFromFilter.value) {
         currentFilters.date_from = dateFromFilter.value;
     }
-    
+
     if (dateToFilter.value) {
         currentFilters.date_to = dateToFilter.value;
     }
-    
+
     // Keep search term if exists
     const searchInput = document.getElementById('searchInput');
     if (searchInput.value.trim()) {
         currentFilters.search = searchInput.value.trim();
     }
-    
+
     loadHistory(1);
     loadStats(); // Reload stats with filters
 }
 
 function clearFilters() {
     currentFilters = {};
-    
+
     // Clear form inputs
     document.getElementById('userFilter').value = '';
     document.getElementById('interactionTypeFilter').value = '';
     document.getElementById('dateFromFilter').value = '';
     document.getElementById('dateToFilter').value = '';
     document.getElementById('searchInput').value = '';
-    
+
     loadHistory(1);
     loadStats();
 }
@@ -372,7 +372,7 @@ function showMetadata(interactionId, metadataJson) {
     try {
         const metadata = JSON.parse(metadataJson);
         const formattedMetadata = JSON.stringify(metadata, null, 2);
-        
+
         const modal = document.createElement('div');
         modal.className = 'modal fade';
         modal.innerHTML = `
@@ -391,16 +391,16 @@ function showMetadata(interactionId, metadataJson) {
                 </div>
             </div>
         `;
-        
+
         document.body.appendChild(modal);
         const bootstrapModal = new bootstrap.Modal(modal);
         bootstrapModal.show();
-        
+
         // Remove modal from DOM when hidden
         modal.addEventListener('hidden.bs.modal', () => {
             document.body.removeChild(modal);
         });
-        
+
     } catch (error) {
         showAlert('danger', 'Không thể hiển thị metadata: ' + error.message);
     }
@@ -412,17 +412,17 @@ async function exportHistory() {
             ...currentFilters,
             export: 'csv'
         });
-        
+
         const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.HISTORY.ALL}?${params}`, {
             headers: {
                 'Authorization': `Bearer ${Auth.getToken()}`
             }
         });
-        
+
         if (!response.ok) {
             throw new Error('Export failed');
         }
-        
+
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -432,9 +432,9 @@ async function exportHistory() {
         a.click();
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
-        
+
         showAlert('success', 'Xuất báo cáo thành công!');
-        
+
     } catch (error) {
         console.error('Export error:', error);
         showAlert('danger', 'Lỗi khi xuất báo cáo: ' + error.message);
@@ -500,7 +500,7 @@ function getInteractionTypeText(type) {
 // Event handlers
 async function handleLogout(e) {
     e.preventDefault();
-    
+
     if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
         try {
             await Auth.logout();
@@ -522,11 +522,11 @@ function toggleSidebar() {
 function setupSidebarToggle() {
     const sidebarToggle = document.getElementById('sidebarToggle');
     const sidebarToggleTop = document.getElementById('sidebarToggleTop');
-    
+
     if (sidebarToggle) {
         sidebarToggle.addEventListener('click', toggleSidebar);
     }
-    
+
     if (sidebarToggleTop) {
         sidebarToggleTop.addEventListener('click', toggleSidebar);
     }
@@ -541,10 +541,10 @@ function showAlert(type, message) {
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
-    
+
     // Add to page
     document.body.appendChild(alert);
-    
+
     // Auto remove after 5 seconds
     setTimeout(() => {
         if (alert.parentNode) {

@@ -62,7 +62,7 @@ function displayUserInfo() {
         }
 
         if (userAvatar && user.avatar_url) {
-            userAvatar.src = user.avatar_url;
+            userAvatar.src = window.origin + "/uploads/" + user.avatar_url
         }
     }
 }
@@ -82,7 +82,7 @@ async function loadProfile() {
         // Update avatar
         const profileAvatar = document.getElementById("profileAvatar");
         if (user.avatar_url) {
-            profileAvatar.src = user.avatar_url;
+            profileAvatar.src = window.origin + "/uploads/" + user.avatar_url;
         }
 
         // Update account info
@@ -179,8 +179,7 @@ function displayAccountStats(stats) {
                 <i class="${stat.icon} fa-2x text-${stat.color}"></i>
             </div>
             <div class="col ml-2">
-                <div class="text-xs font-weight-bold text-${
-                    stat.color
+                <div class="text-xs font-weight-bold text-${stat.color
                 } text-uppercase mb-1">${stat.label}</div>
                 <div class="h5 mb-0 font-weight-bold text-gray-800">${stat.value.toLocaleString()}</div>
             </div>
@@ -328,6 +327,20 @@ function previewAvatar(input) {
             return;
         }
 
+        const formData = new FormData();
+        formData.append("image", file);
+
+        const userId = Auth.getUser().id;
+
+        fetch(`http://localhost:3001/api${API_ENDPOINTS.AUTH.UPLOAD_AVATAR}?userId=${userId}`, {
+            method: "POST",
+            body: formData,
+
+        }).then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            })
+
         const reader = new FileReader();
         reader.onload = function (e) {
             document.getElementById("profileAvatar").src = e.target.result;
@@ -336,7 +349,7 @@ function previewAvatar(input) {
     }
 }
 
-async function uploadAvatar() {
+async function uploadAvatar(e) {
     try {
         const fileInput = document.getElementById("avatarFile");
         const file = fileInput.files[0];
@@ -346,21 +359,28 @@ async function uploadAvatar() {
             showAlert("warning", "Vui lòng chọn ảnh để tải lên");
             return;
         }
-
         const formData = new FormData();
         formData.append("image", file);
 
-        const result = await Auth.apiRequest(API_ENDPOINTS.AUTH.UPLOAD_AVATAR, {
+        fetch("http://localhost:3001/api" + API_ENDPOINTS.AUTH.UPLOAD_AVATAR, {
             method: "POST",
             body: formData,
-            headers: {}, // Let browser set Content-Type for FormData
-        });
+        }).then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            })
+        // const result = await Auth.apiRequest(API_ENDPOINTS.AUTH.UPLOAD_AVATAR, {
+        //     method: "POST",
+        //     body: formData,
+        //     headers: {
+        //     }, // Let browser set Content-Type for FormData
+        // });
 
-        // Update user data
-        Auth.updateUser(result.data.user);
+        // // Update user data
+        // Auth.updateUser(result.data.user);
 
-        // Update display
-        displayUserInfo();
+        // // Update display
+        // displayUserInfo();
 
         showAlert("success", "Tải lên ảnh đại diện thành công!");
     } catch (error) {

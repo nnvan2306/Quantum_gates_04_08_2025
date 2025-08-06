@@ -456,6 +456,22 @@ class AdminController {
         }
     }
 
+
+    static async updateAvatar(id, filename) {
+        try {
+            const query = `update users set avatar_url = ? where id = ?;`;
+
+            const params = [
+                filename,
+                id
+            ];
+
+            await insertRecord(query, params);
+        } catch (error) {
+            console.error('Failed to log admin action:', error);
+            // Don't throw error as this is not critical
+        }
+    }
 }
 
 module.exports = AdminController;
